@@ -1,27 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-     <head>
-          <meta charset="UTF-8" />
-          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta name="description" content="Build your ultimate team for FUT Champions with our squad builder tool. Create, share, and manage your dream team." />
-          <meta property="og:title" content="FUT Champions Squad Builder" />
-          <meta property="og:type" content="website" />
-          <meta property="og:site_name" content="FUT Champions" />
-          <meta property="og:url" content="siteurl" />
-          <meta property="og:description" content="Build your ultimate team for FUT Champions with our squad builder tool. Create, share, and manage your dream team." />
-          <meta property="twitter:title" content="FUT Champions Squad Builder" />
-          <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:description" content="Build your ultimate team for FUT Champions with our squad builder tool. Create, and manage your dream team." />
-          <meta property="twitter:site" content="@teambuilder" />
-          <meta property="twitter:creator" content="@teambuilder" />
-          <meta property="twitter:domain" content="siteurl" />
-          <link rel="canonical" href="siteurl" />
-          <link href="/favicon.png" rel="icon" type="image/x-icon" />
-          <title>FUT Champions Squad Builder</title>
-          <link rel="stylesheet" href="./css/style.css" />
-     </head>
-     <body>
-          <script src="./main.js"></script>
-     </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Build your ultimate team for FUT Champions with our squad builder tool. Create, share, and manage your dream team."
+    />
+    <meta property="og:title" content="FUT Champions Squad Builder" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FUT Champions" />
+    <meta property="og:url" content="siteurl" />
+    <meta
+      property="og:description"
+      content="Build your ultimate team for FUT Champions with our squad builder tool. Create, share, and manage your dream team."
+    />
+    <meta property="twitter:title" content="FUT Champions Squad Builder" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:description"
+      content="Build your ultimate team for FUT Champions with our squad builder tool. Create, and manage your dream team."
+    />
+    <meta property="twitter:site" content="@teambuilder" />
+    <meta property="twitter:creator" content="@teambuilder" />
+    <meta property="twitter:domain" content="siteurl" />
+    <link rel="canonical" href="siteurl" />
+    <link href="/favicon.png" rel="icon" type="image/x-icon" />
+    <title>FUT Champions - Squad Builder</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <nav class="container">
+      <div class="child nav-container">
+        <div class="logo">
+          <a href="#">Squad Builder</a>
+        </div>
+        <div class="actions active">
+          <select class="formation" onchange="handleSelect()" name="" id="formation">
+               <option value="tree-tree" selected>4-3-3</option>
+            <option value="for-two" >4-4-2</option>
+          </select>
+          <button>Add Player</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+     <!-- /--------------------------------------------- -->
+     <div class="field">
+
+          <div class="attack">
+               <div class="player-square">X</div>
+               <div class="player-square">X</div>
+               <div class="player-square">X</div>
+               <div class="player-square">X</div>
+               <div class="player-square">X</div>
+               <div class="player-square">X</div>
+          </div>
+          <div class="defence ">
+               <div class="defence-square">X</div>
+               <div class="defence-square">X</div>
+               <div class="defence-square">X</div>
+               <div class="defence-square">X</div>
+          </div>
+          <div class="goal-keper">X</div>
+
+     </div>
+     <!-- /--------------------------------------------- -->
+
+
+
+      <div class="extra-players"></div>
+    </div>
+  </body>
+  <script src="./main.js"></script>
+  <script src="./js/app.js"></script>
+  <script>
+     let attack = document.querySelector(".attack")
+     function handleSelect(){
+          attack.classList.toggle("for-two")
+     }
+  
+  </script>
 </html>
