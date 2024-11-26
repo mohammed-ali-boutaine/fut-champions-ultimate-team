@@ -1,8 +1,8 @@
 function redAlert(message) {
     const div = document.createElement("div");
     div.innerHTML = message;
-    div.classList.add("alert red-alert");
-    document.appendChild(div);
+    div.classList.add("alert","red-alert")
+    document.body.appendChild(div);
     setInterval(() => {
         div.remove();
     }, 3000);

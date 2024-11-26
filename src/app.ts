@@ -1,6 +1,7 @@
 // import { getEquipe,setEquipe } from "./modules/equipe";
-import Player from "./modules/Player";
-import { redAlert,greenAlert } from "./functions/alert";
+import Player from "./modules/Player.ts";
+import { redAlert,greenAlert } from "./functions/alert.ts";
+import { addPlayer } from "./functions/addPlayer.ts";
 
 //  let equipe : Player[] = getEquipe()
 // console.log(equipe);
@@ -43,3 +44,15 @@ function card(player: Player): string {
  }
  
 
+document.querySelector("#add-player-form form")?.addEventListener("submit",function(ev){
+  console.log("submited");
+  
+  ev.preventDefault()
+
+
+
+  addPlayer()
+
+
+  
+})
