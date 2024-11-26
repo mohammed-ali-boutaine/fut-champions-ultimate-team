@@ -1,5 +1,5 @@
 import Player from "../modules/Player.js";
-import { redAlert } from "./alert.js";
+import { redAlert,greenAlert } from "./alert.js";
 function addPalyer() {
     // get data from form
     const name = document.getElementById("name");
@@ -13,7 +13,8 @@ function addPalyer() {
     }
     // create player object
     const player = new Player(name.value, position.value, nationality.value, club.value, parseInt(rating.value, 10));
-    console.log(player);
+    console.log(player);   greenAlert("added sucsfly")
+
     // add player and save in localstorage
     // equipe.push(player)
     // setEquipe(equipe)
