@@ -1,9 +1,9 @@
-import { getEquipe,setEquipe } from "./modules/equipe";
+// import { getEquipe,setEquipe } from "./modules/equipe";
 import Player from "./modules/Player";
 import { redAlert,greenAlert } from "./functions/alert";
 
- let equipe : Player[] = getEquipe()
-console.log(equipe);
+//  let equipe : Player[] = getEquipe()
+// console.log(equipe);
 
 
 
