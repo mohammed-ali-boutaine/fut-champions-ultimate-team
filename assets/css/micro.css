@@ -1,5 +1,26 @@
 
 
+
+
+.plus-image{
+  height: 40px;
+  width: 40px;
+  transition: 300ms;
+}
+/* .plus-image:hover{
+  scale: 1.2;
+} */
+.player{
+  /* border: 1px solid black; */
+}
+.player:hover{
+  background-color: #5555556f;
+  opacity: 0.8;
+}
+.player:hover .plus-image{
+  scale: 1.2;
+
+}
 /* snipper animation  */
 
 .cards{

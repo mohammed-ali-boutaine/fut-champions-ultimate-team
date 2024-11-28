@@ -70,28 +70,38 @@ function updatePlayer(updatedPlayer: Player) {
      }
  }
 //-----------------------------------
- function card(player: Player): string {
-     return `
-     <div class="card">
-         <div class="stat">
-             <h3 class="rating">${player.rating}</h3>
-             <h3 class="position">${player.position}</h3>
-         </div>
-         <div class="profil">
-             <img src="${player.photo}" alt="${player.name}">
-         </div>
-         <h2 class="name">${player.name}</h2>
-         <p>${player.club}</p>
-         <div class="nationality">${player.nationality} <img src="${player.flag}" alt="${player.nationality}"></div>
-     </div>
-     `;
+function card(player: Player): string {
+  const { photo, flag, nationality, rating, position, name, club } = player
+
+  const defaultPhoto = './assets/images/unknown-player.png';
+  const defaultFlag = './assets/images/unknown-flag.png';
+
+  let playerPhoto = photo?photo : defaultPhoto
+  let playerFlag = photo?flag : defaultFlag
+
+
+  return `
+    <div class="card">
+        <div class="stat">
+            <h3 class="rating">${rating}</h3>
+            <h3 class="position">${position}</h3>
+        </div>
+        <div class="profil">
+            <img src="${playerPhoto}" alt="${name}">
+        </div>
+        <h2 class="name">${name}</h2>
+        <p>${club}</p>
+        <div class="nationality">${nationality} <img src="${playerFlag}" alt="${nationality}"></div>
+    </div>
+  `;
  }
+
  function displayPlayers(players: Player[]) {
      const content = players.map(card).join("");
      const cardsDiv = document.getElementById("cards") as HTMLDivElement;
      cardsDiv.innerHTML = content;
 
-         // Add double-click event listeners to each card
+    // Add double-click event listeners to each card
     const cardsItems = document.querySelectorAll(".card") as NodeListOf<HTMLDivElement>;
     cardsItems.forEach(card => {
      card.addEventListener("dblclick", function(ev) {

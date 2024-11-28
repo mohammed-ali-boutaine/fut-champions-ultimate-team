@@ -1,4 +1,4 @@
-import Player from "../modules/Player";
+import Player from "../modules/Player.js";
 let equipe;
 // add player to equipe
 // Formation 4-3-3 : Comprend 1 GK, 2 CB (Défenseurs centraux), 1 LB (Latéral gauche), 1 RB (Latéral droit), 3 CM (Milieux centraux), 1 LW (Ailier gauche), 1 RW (Ailier droit), et 1 ST (Attaquant central)
