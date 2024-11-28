@@ -1,28 +1,26 @@
+// create alert , insert it to body , remove it after 3s
+
 function redAlert(message: string): void {
-     // Create a new div element
      const div: HTMLDivElement = document.createElement("div");
-     div.innerHTML = message; // Set the message
-     div.classList.add("alert", "red-alert"); // Add classes for styling
+     div.innerHTML = message; 
+     div.classList.add("alert", "red-alert"); 
  
-     // Append the div to the body
      document.body.appendChild(div);
  
-     // Remove the div after 3 seconds
      setTimeout(() => {
          div.remove();
      }, 3000);
  }
  
  function greenAlert(message: string): void {
-     // Create a new div element
-     const div: HTMLDivElement = document.createElement("div");
-     div.innerHTML = message; // Set the message
-     div.classList.add("alert", "green-alert"); // Add classes for styling
+
+    // create alert , insert it to body , remove it after 3s
+    const div: HTMLDivElement = document.createElement("div");
+     div.innerHTML = message; 
+     div.classList.add("alert", "green-alert"); 
  
-     // Append the div to the body
      document.body.appendChild(div);
  
-     // Remove the div after 3 seconds
      setTimeout(() => {
          div.remove();
      }, 3000);

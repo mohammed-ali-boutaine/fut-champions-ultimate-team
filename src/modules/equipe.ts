@@ -7,7 +7,6 @@ function getEquipe():Player[] {
       const equipe: Player[] = JSON.parse(equipeData);
       return equipe;
     } catch (error) {
-      console.error("Failed to parse equipe data from localStorage:", error);
       return [];
     }
   }

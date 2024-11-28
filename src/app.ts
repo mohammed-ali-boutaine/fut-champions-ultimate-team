@@ -1,58 +1,33 @@
-// import { getEquipe,setEquipe } from "./modules/equipe";
-import Player from "./modules/Player.ts";
-import { redAlert,greenAlert } from "./functions/alert.ts";
-import { addPlayer } from "./functions/addPlayer.ts";
+// import Player from "./modules/Player.ts";
+import { redAlert, greenAlert } from "./functions/alert";
+import { addPlayer, displayPlayers, getPlayers, removePlayer, setPlayers } from "./functions/playerFunctions";
+import Player from "./modules/Player";
 
-//  let equipe : Player[] = getEquipe()
-// console.log(equipe);
+const url = "http://localhost:3000/players";
 
-
-
-const url = "http://localhost:3000/players"
-async function showData(){
-     try {
-          const res = await fetch(url);
-          const players = await res.json();
-      
-          let content = players.map(card).join("");
-      
-          const cardsDiv = document.getElementById("cards") as HTMLDivElement;
-          cardsDiv.innerHTML = content;
+async function showData() {
+    let players:Player[] = getPlayers();
+    if (players.length === 0) {
+        try {
+            const res = await fetch(url);
+            players = await res.json();
+            setPlayers(players);
         } catch (error) {
-          redAlert("Error fetching players:"+error);
+            redAlert("Error fetching players: " + error);
+            return;
         }
-
+    }
+    displayPlayers(players);
 }
 
-showData()
 
-function card(player: Player): string {
-     return `
-     <div class="card">
-       <div class="stat">
-         <h3 class="rating">${player.rating}</h3>
-         <h3 class="position">${player.position}</h3>
-       </div>
-       <div class="profil">
-         <img src="${player.photo}" alt="${player.name}">
-       </div>
-       <h2>${player.name}</h2>
-       <p>${player.club}</p>
-       <div class="nationality">${player.nationality} <img src="${player.flag}" alt="${player.nationality}"></div>
-     </div>
-   `;
- }
- 
-
-document.querySelector("#add-player-form form")?.addEventListener("submit",function(ev){
-  console.log("submited");
-  
-  ev.preventDefault()
+document.querySelector("#add-player-form form")?.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    addPlayer();
+    displayPlayers(getPlayers());
+});
 
 
 
-  addPlayer()
 
-
-  
-})
+showData();
