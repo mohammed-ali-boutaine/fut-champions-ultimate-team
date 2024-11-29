@@ -1,8 +1,4 @@
-
-
-
-
-.plus-image{
+.plus-image {
   height: 40px;
   width: 40px;
   transition: 300ms;
@@ -10,20 +6,19 @@
 /* .plus-image:hover{
   scale: 1.2;
 } */
-.player{
+.player {
   /* border: 1px solid black; */
 }
-.player:hover{
+.player:hover {
   background-color: #5555556f;
   opacity: 0.8;
 }
-.player:hover .plus-image{
+.player:hover .plus-image {
   scale: 1.2;
-
 }
 /* snipper animation  */
 
-.cards{
+.cards {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +36,8 @@
   background-color: #000; /* Dark thumb color */
   border-radius: 25px; /* Rounded corners for a modern look */
   border: 3px solid transparent; /* Padding effect */
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */}
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
 
 .cards::-webkit-scrollbar-thumb:hover {
   background: #555; /* Lighter color on hover */
@@ -53,7 +49,6 @@
   scrollbar-color: #000000d4 transparent; /* Thumb and track colors */
 }
 
-
 .loader {
   width: 50px;
   aspect-ratio: 1;
@@ -62,25 +57,11 @@
   border-color: #000 #0000;
   animation: l1 1s infinite;
 }
-@keyframes l1 {to{transform: rotate(.5turn)}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@keyframes l1 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
 
 /* alert style  */
 
@@ -101,18 +82,43 @@
   top: 10px;
   right: 10px;
   z-index: 1000;
+  transition: 300ms all;
 }
-
+@keyframes fadeInRight {
+  0% {
+  opacity: 0;
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+  }
+  100% {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+  }
+  } 
+@keyframes shake {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  30%, 75% {
+    transform: translate3d(-10px, 0, 0);
+  }
+  50% ,90%{
+    transform: translate3d(10px, 0, 0);
+  }
+}
 .green-alert {
   color: #5dca13;
   background-color: #d4edda;
   border-color: #c3e6cb;
+  animation: fadeInRight 300ms ease;
 }
 
 .red-alert {
   color: #ef1329d5;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+  animation: shake 300ms ease ;
 }
 
 /* form style  */
@@ -176,11 +182,11 @@
 .form-group input[type="file"] {
   padding: 5px;
 }
-.buttons-container{
+.buttons-container {
   display: flex;
   justify-content: space-between;
 }
-.buttons-container button{
+.buttons-container button {
   width: 40%;
   padding: 10px;
   border: none;
@@ -190,9 +196,8 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.buttons-container button:hover{
+.buttons-container button:hover {
   background-color: #9b9b9b;
-
 }
 
 .form-group button.active {
@@ -204,39 +209,134 @@
   background-color: #0056b3;
 }
 
-
 /* card  */
-.cards{
+.cards {
   background-color: #c3e6cb;
   width: 500px;
   height: 100vh;
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  padding: 5px;
 }
 
-.card{
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
+.card {
+  width: calc(50% - 10px);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  padding: 10px;
+font-size: 14px;
+text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card .stat {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.rating,
+.position {
+  margin: 0;
+}
 
+.card .profil {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  display: flex;
+  height: 200px; /* Set a fixed height for the profile image container */
+  overflow: hidden; /* Hide any overflow */
+  justify-content: center;
 }
-.card .stat{
-    position: absolute;
-    right: 0px;
-    top: 0px;
+.profil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
 }
-.card .profil{
-    width: 100%;
-    border-bottom: 1px solid gray;
-    display: flex;
-    justify-content: center;
+.card .nationality {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.card .nationality{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.card .name{
+  font-size: 14px;
+  text-align: center;
+}
+
+.card p {
+  color: #777;
+}
+
+.nationality {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+}
+
+.nationality img {
+  width: 20px;
+  height: auto;
+}
+
+
+
+.field .card{
+  width: 100px;
+  height: 150px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  /* padding: 10px; */
+font-size: 12px;
+text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cards.shaking .card{
+  animation: shake 1s;
+  animation-iteration-count: infinite;
+}
+.field .stat {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.field .rating,
+.field .position {
+  margin: 0;
+}
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  /* 20% { transform: translate(-3px, 0px) rotate(1deg); } */
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  /* 50% { transform: translate(-1px, 2px) rotate(-1deg); }: */
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  /* 80% { transform: translate(-1px, -1px) rotate(1deg); } */
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }

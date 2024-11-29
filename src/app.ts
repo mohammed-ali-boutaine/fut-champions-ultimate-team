@@ -20,14 +20,26 @@ async function showData() {
     displayPlayers(players);
 }
 
+const formContainer = document.getElementById("add-player-form") as HTMLDivElement
 
 document.querySelector("#add-player-form form")?.addEventListener("submit", function (ev) {
     ev.preventDefault();
     addPlayer();
+    formContainer.classList.toggle("hidden");
+
     displayPlayers(getPlayers());
 });
 
+const playerDivs = document.querySelectorAll(".player") as NodeListOf<HTMLDivElement>
 
+playerDivs.forEach(playerDiv =>{
+    playerDiv.addEventListener("click",function(ev){
+        document.querySelector(".cards")?.classList.add("shaking")
+       console.log(ev);
+       
+    })
+    
+})
 
 
 showData();

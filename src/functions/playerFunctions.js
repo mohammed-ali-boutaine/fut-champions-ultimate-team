@@ -1,5 +1,5 @@
-import Player from "../modules/Player.js";
-import { greenAlert, redAlert } from "./alert.js";
+import Player from "../modules/Player";
+import { greenAlert, redAlert } from "./alert";
 //-----------------------------------
 //       get Player function
 function getPlayers() {

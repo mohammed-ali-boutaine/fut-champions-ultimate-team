@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 // import Player from "./modules/Player.ts";
-import { redAlert } from "./functions/alert.js";
-import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
+import { redAlert } from "./functions/alert";
+import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions";
 const url = "http://localhost:3000/players";
 function showData() {
     return __awaiter(this, void 0, void 0, function* () {

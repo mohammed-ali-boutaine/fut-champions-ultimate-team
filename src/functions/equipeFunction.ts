@@ -1,31 +1,84 @@
-import { getEquipe, setEquipe } from "../modules/equipe";
 import Player from "../modules/Player";
+import { greenAlert, redAlert } from "./alert";
 
-interface equipePlayer {
-     position:string
-     player:Player
+interface EquipePlayer {
+  position: string;
+  player: Player;
 }
 
-let equipe :equipePlayer[] 
+function getEquipePlayers(): EquipePlayer[] {
+  let equipeData = localStorage.getItem("equipe");
+  if (equipeData) {
+    try {
+      const localStorageEquipe: EquipePlayer[] = JSON.parse(equipeData);
+      return localStorageEquipe;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  return [];
+}
+
+//-------------------------------------
+
+function setEquipe(equipe: EquipePlayer[]): void {
+  localStorage.setItem("equipe", JSON.stringify(equipe));
+}
 
 // add player to equipe
 // Formation 4-3-3 : Comprend 1 GK, 2 CB (Défenseurs centraux), 1 LB (Latéral gauche), 1 RB (Latéral droit), 3 CM (Milieux centraux), 1 LW (Ailier gauche), 1 RW (Ailier droit), et 1 ST (Attaquant central)
 
+// const positions = [
+//   { name: "Goalkeeper", short: "GK" },
+//   { name: "Center-back", short: "CB" },
+//   { name: "Full-back", short: "FB" },
+//   { name: "Wing-back", short: "WB" },
+//   { name: "Defensive Midfielder", short: "CDM" },
+//   { name: "Central Midfielder", short: "CM" },
+//   { name: "Attacking Midfielder", short: "CAM" },
+//   { name: "Wide Midfielder", short: "LM/RM" },
+//   { name: "Striker", short: "ST" },
+//   { name: "Center Forward", short: "CF" },
+//   { name: "Winger", short: "LW/RW" },
+//   { name: "Second Striker", short: "SS" }
+// ];
 
+function addEquipePlayer(position: string, player: Player) {
+  let equipe: EquipePlayer[] = getEquipePlayers();
 
+  // Check if the player already exists in the team
+  const existingPlayer = equipe.find(
+    (equipePlayer) => equipePlayer.player === player
+  );
 
+  if (existingPlayer) {
+    redAlert("Player already in the team.");
+    return;
+  }
+  const equipePlayer: EquipePlayer = { position, player };
+  equipe.push(equipePlayer);
+  setEquipe(equipe);
+  greenAlert("player added to equipe seccusfly");
+}
 
-// Example usage
-const newPlayer: Player = new Player("John Doe", "Forward", "USA", "Some Club", 85);
+function removeEquipePlayer(playerName: string) {
+  let equipe: EquipePlayer[] = getEquipePlayers();
 
-// Get current equipe
-// let equipe = getEquipe();
+  const updatedEquipe = equipe.filter(
+    (equipePlayer) => equipePlayer.player.name !== playerName
+  );
 
-// Add new player to equipe
-// equipe.push(newPlayer);
+  if (updatedEquipe.length === equipe.length) {
+    redAlert("Player not found in the team.");
+    return;
+  }
 
-// Save updated equipe
-// setEquipe(equipe);
-
-// Log updated equipe
-// console.log(getEquipe());
+  setEquipe(updatedEquipe);
+  greenAlert("Player removed from equipe successfully.");
+}
+// Display the current team (for debugging)
+function showEquipePlayers(): void {
+  const equipe = getEquipePlayers();
+  console.log(equipe);
+}

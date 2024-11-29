@@ -83,7 +83,7 @@ function card(player: Player): string {
   return `
     <div class="card">
         <div class="stat">
-            <h3 class="rating">${rating}</h3>
+            <h3 class="rating">${rating}-</h3>
             <h3 class="position">${position}</h3>
         </div>
         <div class="profil">
