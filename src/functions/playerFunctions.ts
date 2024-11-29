@@ -27,7 +27,7 @@ function addPlayer() {
     "nationality"
   ) as HTMLSelectElement;
   const club = document.getElementById("club") as HTMLInputElement;
-  const rating = document.getElementById("rating") as HTMLInputElement;
+  const ratingInput = document.getElementById("rating") as HTMLInputElement;
 
   // Form validation
   if (
@@ -35,22 +35,25 @@ function addPlayer() {
     !position.value ||
     !nationality.value ||
     !club.value ||
-    !rating.value
+    !ratingInput.value
   ) {
     redAlert("All fields are required.");
     return;
   } else {
     // Create player object
+    const rating: number = parseInt(ratingInput.value, 10) || 0;
+    let players = getPlayers();
+    let id = players.length > 0 ? players[players.length - 1].id + 1 : 1;
+
     const player = new Player(
+      id,
       name.value,
       position.value,
       nationality.value,
       club.value,
-      parseInt(rating.value, 10)
+      rating
     );
 
-    // Get existing players, add the new player, and save back to localStorage
-    const players = getPlayers();
     players.push(player);
     setPlayers(players);
 
@@ -59,29 +62,28 @@ function addPlayer() {
 }
 
 function updatePlayer(updatedPlayer: Player) {
-     let players : Player[] = getPlayers();
-     const index = players.findIndex(player => player.name === updatedPlayer.name);
-     if (index !== -1) {
-         players[index] = updatedPlayer;
-         setPlayers(players);
-         greenAlert("Player updated successfully");
-     } else {
-         redAlert("Player not found");
-     }
- }
+  let players: Player[] = getPlayers();
+  const index = players.findIndex((player) => player.id === updatedPlayer.id);
+  if (index !== -1) {
+    players[index] = updatedPlayer;
+    setPlayers(players);
+    greenAlert("Player updated successfully");
+  } else {
+    redAlert("Player not found");
+  }
+}
 //-----------------------------------
 function card(player: Player): string {
-  const { photo, flag, nationality, rating, position, name, club } = player
+  const { id, photo, flag, nationality, rating, position, name, club } = player;
 
-  const defaultPhoto = './assets/images/unknown-player.png';
-  const defaultFlag = './assets/images/unknown-flag.png';
+  const defaultPhoto = "./assets/images/unknown-player.png";
+  const defaultFlag = "./assets/images/unknown-flag.png";
 
-  let playerPhoto = photo?photo : defaultPhoto
-  let playerFlag = photo?flag : defaultFlag
-
+  let playerPhoto = photo ? photo : defaultPhoto;
+  let playerFlag = photo ? flag : defaultFlag;
 
   return `
-    <div class="card">
+    <div class="card" id="${id}">
         <div class="stat">
             <h3 class="rating">${rating}-</h3>
             <h3 class="position">${position}</h3>
@@ -94,39 +96,50 @@ function card(player: Player): string {
         <div class="nationality">${nationality} <img src="${playerFlag}" alt="${nationality}"></div>
     </div>
   `;
- }
+}
 
- function displayPlayers(players: Player[]) {
-     const content = players.map(card).join("");
-     const cardsDiv = document.getElementById("cards") as HTMLDivElement;
-     cardsDiv.innerHTML = content;
+function displayPlayers(players: Player[]) {
+  const content = players.map(card).join("");
+  const cardsDiv = document.getElementById("cards") as HTMLDivElement;
+  cardsDiv.innerHTML = content;
 
-    // Add double-click event listeners to each card
-    const cardsItems = document.querySelectorAll(".card") as NodeListOf<HTMLDivElement>;
-    cardsItems.forEach(card => {
-     card.addEventListener("dblclick", function(ev) {
-         const target = ev.target as HTMLElement;
-         const playerNameElement = target.closest(".card")?.querySelector(".name") as HTMLElement;
-         if (playerNameElement) {
-             removePlayer(playerNameElement.innerHTML);
-             displayPlayers(getPlayers()); // Update the displayed players after removal
-         }
-     });
- });
- }
+  // Add double-click event listeners to each card
+  const cardsItems = document.querySelectorAll(
+    ".card"
+  ) as NodeListOf<HTMLDivElement>;
+  cardsItems.forEach((card) => {
+    card.addEventListener("dblclick", function (ev) {
+      const target = ev.target as HTMLElement;
+      const playerNameElement = target
+        .closest(".card")
+        ?.querySelector(".name") as HTMLElement;
+      if (playerNameElement) {
+        removePlayer(playerNameElement.innerHTML);
+        displayPlayers(getPlayers()); // Update the displayed players after removal
+      }
+    });
+  });
+}
 // -----------------------------
 //        remove player function
 
 function removePlayer(playerName: string) {
-    let players = getPlayers();
-    const updatedPlayers = players.filter(player => player.name !== playerName);
-    if (players.length !== updatedPlayers.length) {
-        setPlayers(updatedPlayers);
-        greenAlert("Player removed successfully");
-        displayPlayers(updatedPlayers);
-    } else {
-        redAlert("Player not found");
-    }
+  let players = getPlayers();
+  const updatedPlayers = players.filter((player) => player.name !== playerName);
+  if (players.length !== updatedPlayers.length) {
+    setPlayers(updatedPlayers);
+    greenAlert("Player removed successfully");
+    displayPlayers(updatedPlayers);
+  } else {
+    redAlert("Player not found");
+  }
 }
 
-export { displayPlayers,updatePlayer,getPlayers, setPlayers, addPlayer, removePlayer };
+export {
+  displayPlayers,
+  updatePlayer,
+  getPlayers,
+  setPlayers,
+  addPlayer,
+  removePlayer,
+};

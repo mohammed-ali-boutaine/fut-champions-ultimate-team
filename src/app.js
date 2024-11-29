@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 // import Player from "./modules/Player.ts";
-import { redAlert } from "./functions/alert";
-import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions";
+import { redAlert } from "./functions/alert.js";
+import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
 const url = "http://localhost:3000/players";
 function showData() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -39,9 +39,20 @@ const formContainer = document.getElementById("add-player-form");
 const playerDivs = document.querySelectorAll(".player");
 playerDivs.forEach(playerDiv => {
     playerDiv.addEventListener("click", function (ev) {
-        var _a;
-        (_a = document.querySelector(".cards")) === null || _a === void 0 ? void 0 : _a.classList.add("shaking");
-        console.log(ev);
+        const cardsContainer = document.querySelector(".cards");
+        const cards = document.querySelectorAll(".cards .card");
+        cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.add("shaking");
+        console.log("Player clicked:", ev);
+        const handleCardClick = (cardEvent) => {
+            const card = cardEvent.currentTarget;
+            playerDiv.innerHTML = card.innerHTML;
+            console.log("Card clicked:", cardEvent);
+            cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.remove("shaking");
+            cards.forEach(card => card.removeEventListener("click", handleCardClick));
+        };
+        cards.forEach(card => {
+            card.addEventListener("click", handleCardClick);
+        });
     });
 });
 showData();

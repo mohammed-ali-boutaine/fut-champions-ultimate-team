@@ -1,6 +1,6 @@
 // import Player from "./modules/Player.ts";
-import { redAlert, greenAlert } from "./functions/alert";
-import { addPlayer, displayPlayers, getPlayers, removePlayer, setPlayers } from "./functions/playerFunctions";
+import { redAlert, greenAlert } from "./functions/alert.js";
+import { addPlayer, displayPlayers, getPlayers, removePlayer, setPlayers } from "./functions/playerFunctions.js";
 import Player from "./modules/Player";
 
 const url = "http://localhost:3000/players";
@@ -17,6 +17,8 @@ async function showData() {
             return;
         }
     }
+    console.log(players);
+    
     displayPlayers(players);
 }
 
@@ -30,16 +32,33 @@ document.querySelector("#add-player-form form")?.addEventListener("submit", func
     displayPlayers(getPlayers());
 });
 
-const playerDivs = document.querySelectorAll(".player") as NodeListOf<HTMLDivElement>
+const playerDivs = document.querySelectorAll(".player") as NodeListOf<HTMLDivElement>;
 
-playerDivs.forEach(playerDiv =>{
-    playerDiv.addEventListener("click",function(ev){
-        document.querySelector(".cards")?.classList.add("shaking")
-       console.log(ev);
-       
-    })
-    
-})
+playerDivs.forEach(playerDiv => {
+    playerDiv.addEventListener("click", function (ev: MouseEvent) {
+        const cardsContainer = document.querySelector(".cards") as HTMLDivElement;
+        const cards = document.querySelectorAll(".cards .card") as NodeListOf<HTMLDivElement>;
+
+        cardsContainer?.classList.add("shaking");
+        console.log("Player clicked:", ev);
+
+        const handleCardClick = (cardEvent: MouseEvent) => {
+            const card = cardEvent.currentTarget as HTMLDivElement;
+
+            playerDiv.innerHTML = card.innerHTML;
+            console.log("Card clicked:", cardEvent);
+
+            cardsContainer?.classList.remove("shaking");
+
+            cards.forEach(card => card.removeEventListener("click", handleCardClick));
+        };
+
+        cards.forEach(card => {
+            card.addEventListener("click", handleCardClick);
+        });
+    });
+});
+
 
 
 showData();

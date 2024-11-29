@@ -23,21 +23,22 @@ function addPlayer() {
     const position = document.getElementById("position");
     const nationality = document.getElementById("nationality");
     const club = document.getElementById("club");
-    const rating = document.getElementById("rating");
+    const ratingInput = document.getElementById("rating");
     // Form validation
     if (!name.value ||
         !position.value ||
         !nationality.value ||
         !club.value ||
-        !rating.value) {
+        !ratingInput.value) {
         redAlert("All fields are required.");
         return;
     }
     else {
         // Create player object
-        const player = new Player(name.value, position.value, nationality.value, club.value, parseInt(rating.value, 10));
-        // Get existing players, add the new player, and save back to localStorage
-        const players = getPlayers();
+        const rating = parseInt(ratingInput.value, 10) || 0;
+        let players = getPlayers();
+        let id = players.length > 0 ? players[players.length - 1].id + 1 : 1;
+        const player = new Player(id, name.value, position.value, nationality.value, club.value, rating);
         players.push(player);
         setPlayers(players);
         greenAlert("Player added successfully");
@@ -45,7 +46,7 @@ function addPlayer() {
 }
 function updatePlayer(updatedPlayer) {
     let players = getPlayers();
-    const index = players.findIndex(player => player.name === updatedPlayer.name);
+    const index = players.findIndex((player) => player.id === updatedPlayer.id);
     if (index !== -1) {
         players[index] = updatedPlayer;
         setPlayers(players);
@@ -57,13 +58,13 @@ function updatePlayer(updatedPlayer) {
 }
 //-----------------------------------
 function card(player) {
-    const { photo, flag, nationality, rating, position, name, club } = player;
-    const defaultPhoto = './assets/images/unknown-player.png';
-    const defaultFlag = './assets/images/unknown-flag.png';
+    const { id, photo, flag, nationality, rating, position, name, club } = player;
+    const defaultPhoto = "./assets/images/unknown-player.png";
+    const defaultFlag = "./assets/images/unknown-flag.png";
     let playerPhoto = photo ? photo : defaultPhoto;
     let playerFlag = photo ? flag : defaultFlag;
     return `
-    <div class="card">
+    <div class="card" id="${id}">
         <div class="stat">
             <h3 class="rating">${rating}-</h3>
             <h3 class="position">${position}</h3>
@@ -83,11 +84,12 @@ function displayPlayers(players) {
     cardsDiv.innerHTML = content;
     // Add double-click event listeners to each card
     const cardsItems = document.querySelectorAll(".card");
-    cardsItems.forEach(card => {
+    cardsItems.forEach((card) => {
         card.addEventListener("dblclick", function (ev) {
             var _a;
             const target = ev.target;
-            const playerNameElement = (_a = target.closest(".card")) === null || _a === void 0 ? void 0 : _a.querySelector(".name");
+            const playerNameElement = (_a = target
+                .closest(".card")) === null || _a === void 0 ? void 0 : _a.querySelector(".name");
             if (playerNameElement) {
                 removePlayer(playerNameElement.innerHTML);
                 displayPlayers(getPlayers()); // Update the displayed players after removal
@@ -99,7 +101,7 @@ function displayPlayers(players) {
 //        remove player function
 function removePlayer(playerName) {
     let players = getPlayers();
-    const updatedPlayers = players.filter(player => player.name !== playerName);
+    const updatedPlayers = players.filter((player) => player.name !== playerName);
     if (players.length !== updatedPlayers.length) {
         setPlayers(updatedPlayers);
         greenAlert("Player removed successfully");
@@ -109,4 +111,4 @@ function removePlayer(playerName) {
         redAlert("Player not found");
     }
 }
-export { displayPlayers, updatePlayer, getPlayers, setPlayers, addPlayer, removePlayer };
+export { displayPlayers, updatePlayer, getPlayers, setPlayers, addPlayer, removePlayer, };

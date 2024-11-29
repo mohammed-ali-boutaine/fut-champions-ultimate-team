@@ -1,5 +1,6 @@
 class Player {
-    constructor(name, position, nationality, club, rating, photo, logo, pace, shooting, passing, dribbling, defending, physical) {
+    constructor(id, name, position, nationality, club, rating, photo, logo, pace, shooting, passing, dribbling, defending, physical) {
+        this.id = id;
         this.name = name;
         this.position = position;
         this.nationality = nationality;
@@ -12,7 +13,7 @@ class Player {
         this.dribbling = dribbling;
         this.defending = defending;
         this.physical = physical;
-        this._rating = rating; // geter and setter
+        this._rating = rating; // getter and setter
     }
     get rating() {
         return this._rating;

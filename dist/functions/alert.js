@@ -1,21 +1,16 @@
-// create alert , insert it to body , remove it after 3s
-function redAlert(message) {
+function createAlert(message, type) {
     const div = document.createElement("div");
     div.innerHTML = message;
-    div.classList.add("alert", "red-alert");
+    div.classList.add("alert", type);
     document.body.appendChild(div);
     setTimeout(() => {
         div.remove();
     }, 3000);
 }
+function redAlert(message) {
+    createAlert(message, "red-alert");
+}
 function greenAlert(message) {
-    // create alert , insert it to body , remove it after 3s
-    const div = document.createElement("div");
-    div.innerHTML = message;
-    div.classList.add("alert", "green-alert");
-    document.body.appendChild(div);
-    setTimeout(() => {
-        div.remove();
-    }, 3000);
+    createAlert(message, "green-alert");
 }
 export { redAlert, greenAlert };

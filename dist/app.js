@@ -26,6 +26,7 @@ function showData() {
                 return;
             }
         }
+        console.log(players);
         displayPlayers(players);
     });
 }
@@ -39,9 +40,20 @@ const formContainer = document.getElementById("add-player-form");
 const playerDivs = document.querySelectorAll(".player");
 playerDivs.forEach(playerDiv => {
     playerDiv.addEventListener("click", function (ev) {
-        var _a;
-        (_a = document.querySelector(".cards")) === null || _a === void 0 ? void 0 : _a.classList.add("shaking");
-        console.log(ev);
+        const cardsContainer = document.querySelector(".cards");
+        const cards = document.querySelectorAll(".cards .card");
+        cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.add("shaking");
+        console.log("Player clicked:", ev);
+        const handleCardClick = (cardEvent) => {
+            const card = cardEvent.currentTarget;
+            playerDiv.innerHTML = card.innerHTML;
+            console.log("Card clicked:", cardEvent);
+            cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.remove("shaking");
+            cards.forEach(card => card.removeEventListener("click", handleCardClick));
+        };
+        cards.forEach(card => {
+            card.addEventListener("click", handleCardClick);
+        });
     });
 });
 showData();

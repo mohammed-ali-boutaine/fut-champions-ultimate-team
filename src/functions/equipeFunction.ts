@@ -16,7 +16,6 @@ function getEquipePlayers(): EquipePlayer[] {
       return [];
     }
   }
-
   return [];
 }
 
@@ -29,37 +28,24 @@ function setEquipe(equipe: EquipePlayer[]): void {
 // add player to equipe
 // Formation 4-3-3 : Comprend 1 GK, 2 CB (Défenseurs centraux), 1 LB (Latéral gauche), 1 RB (Latéral droit), 3 CM (Milieux centraux), 1 LW (Ailier gauche), 1 RW (Ailier droit), et 1 ST (Attaquant central)
 
-// const positions = [
-//   { name: "Goalkeeper", short: "GK" },
-//   { name: "Center-back", short: "CB" },
-//   { name: "Full-back", short: "FB" },
-//   { name: "Wing-back", short: "WB" },
-//   { name: "Defensive Midfielder", short: "CDM" },
-//   { name: "Central Midfielder", short: "CM" },
-//   { name: "Attacking Midfielder", short: "CAM" },
-//   { name: "Wide Midfielder", short: "LM/RM" },
-//   { name: "Striker", short: "ST" },
-//   { name: "Center Forward", short: "CF" },
-//   { name: "Winger", short: "LW/RW" },
-//   { name: "Second Striker", short: "SS" }
-// ];
 
 function addEquipePlayer(position: string, player: Player) {
   let equipe: EquipePlayer[] = getEquipePlayers();
 
   // Check if the player already exists in the team
   const existingPlayer = equipe.find(
-    (equipePlayer) => equipePlayer.player === player
+    (equipePlayer) => equipePlayer.player.id === player.id
   );
 
   if (existingPlayer) {
     redAlert("Player already in the team.");
     return;
   }
+
   const equipePlayer: EquipePlayer = { position, player };
   equipe.push(equipePlayer);
   setEquipe(equipe);
-  greenAlert("player added to equipe seccusfly");
+  greenAlert("Player added to equipe successfully");
 }
 
 function removeEquipePlayer(playerName: string) {
@@ -82,3 +68,4 @@ function showEquipePlayers(): void {
   const equipe = getEquipePlayers();
   console.log(equipe);
 }
+export { addEquipePlayer, removeEquipePlayer, showEquipePlayers, getEquipePlayers, setEquipe };
