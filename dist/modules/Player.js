@@ -13,19 +13,18 @@ class Player {
         this.dribbling = dribbling;
         this.defending = defending;
         this.physical = physical;
-        this._rating = rating; // getter and setter
+        this._rating = rating; // Use getter and setter for rating
     }
+    // Getter for rating
     get rating() {
         return this._rating;
     }
+    // Setter for rating with validation
     set rating(value) {
         if (value < 0 || value > 100) {
             throw new Error("Rating must be between 0 and 100");
         }
         this._rating = value;
-    }
-    get flag() {
-        return `https://cdn.sofifa.net/flags/${this.nationality.toLowerCase()}.png`;
     }
 }
 export default Player;

@@ -8,10 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var _a;
-// import Player from "./modules/Player.ts";
 import { redAlert } from "./functions/alert.js";
 import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
 const url = "http://localhost:3000/players";
+// Fetch and display player data
 function showData() {
     return __awaiter(this, void 0, void 0, function* () {
         let players = getPlayers();
@@ -26,10 +26,10 @@ function showData() {
                 return;
             }
         }
-        // console.log(players);
         displayPlayers(players);
     });
 }
+// Handle form submission for adding a new player
 const formContainer = document.getElementById("add-player-form");
 (_a = document.querySelector("#add-player-form form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", function (ev) {
     ev.preventDefault();
@@ -37,6 +37,7 @@ const formContainer = document.getElementById("add-player-form");
     formContainer.classList.toggle("hidden");
     displayPlayers(getPlayers());
 });
+// Handle player card interactions
 const playerDivs = document.querySelectorAll(".player");
 playerDivs.forEach(playerDiv => {
     playerDiv.addEventListener("click", function (ev) {
@@ -56,4 +57,5 @@ playerDivs.forEach(playerDiv => {
         });
     });
 });
+// Initialize the application by showing data
 showData();

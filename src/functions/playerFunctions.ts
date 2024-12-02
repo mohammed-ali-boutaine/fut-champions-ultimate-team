@@ -127,18 +127,21 @@ function displayPlayers(players: Player[]) {
   cardsDiv.innerHTML = content;
 
   // Add double-click event listeners to each card
-  const cardsItems = document.querySelectorAll(
-    ".card"
-  ) as NodeListOf<HTMLDivElement>;
+  const cardsDeleteButtons = document.querySelectorAll(
+    ".card .delete"
+  ) as NodeListOf<HTMLButtonElement>;
 
-  cardsItems.forEach((card) => {
-    card.addEventListener("dblclick", function (ev) {
+  cardsDeleteButtons.forEach((btn) => {
+    btn.addEventListener("click", function (ev) {
       const target = ev.target as HTMLElement;
-      const playerNameElement = target
+      const playerId = target
         .closest(".card")
-        ?.querySelector(".name") as HTMLElement;
-      if (playerNameElement) {
-        deletePlayer(playerNameElement.innerHTML);
+        ?.id
+        // ?.querySelector("#id") as HTMLElement;
+        console.log(playerId);
+        
+      if (playerId) {
+        deletePlayer(playerId);
         displayPlayers(getPlayers());
       }
     });
@@ -147,9 +150,11 @@ function displayPlayers(players: Player[]) {
 // -----------------------------
 //        remove player function
 
-function deletePlayer(playerName: string) {
+function deletePlayer(playerId: string) {
   let players = getPlayers();
-  const updatedPlayers = players.filter((player) => player.name !== playerName);
+  const updatedPlayers = players.filter((player) => player.id != Number(playerId));
+  console.log( updatedPlayers);
+
   if (players.length !== updatedPlayers.length) {
     // save players , show green wlert , dislay palyers
     setPlayers(updatedPlayers);

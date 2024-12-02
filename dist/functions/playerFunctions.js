@@ -8,7 +8,7 @@ function getPlayers() {
     if (storedPlayers) {
         players = JSON.parse(storedPlayers);
     }
-    console.log(players);
+    // console.log(players);
     return players;
 }
 //-----------------------------------
@@ -46,6 +46,8 @@ function addPlayer() {
     setPlayers(players);
     greenAlert("Player added successfully");
 }
+//-----------------------------------
+// Update an existing player
 function updatePlayer(updatedPlayer) {
     let players = getPlayers();
     const index = players.findIndex((player) => player.id === updatedPlayer.id);
@@ -59,16 +61,17 @@ function updatePlayer(updatedPlayer) {
     }
 }
 //-----------------------------------
+// Generate HTML for a player card
 function card(player) {
     let { id, photo, flag, nationality, rating, position, name, club } = player;
+    const defaultPhoto = "./assets/images/unknown-player.png";
+    const defaultFlag = "./assets/images/unknown-flag.png";
+    let playerPhoto = photo ? photo : defaultPhoto;
+    let playerFlag = flag ? flag : defaultFlag;
     // console.log(player.rating);
     if (!rating) {
         rating = player._rating;
     }
-    const defaultPhoto = "./assets/images/unknown-player.png";
-    const defaultFlag = "./assets/images/unknown-flag.png";
-    let playerPhoto = photo ? photo : defaultPhoto;
-    let playerFlag = photo ? flag : defaultFlag;
     return `
     <div class="card" id="${id}">
     <a class="edit" href="./edit/?id=${id}">
@@ -90,31 +93,37 @@ function card(player) {
     </div>
   `;
 }
+//-----------------------------------
+// Display all players
 function displayPlayers(players) {
     const content = players.map(card).join("");
     const cardsDiv = document.getElementById("cards");
     cardsDiv.innerHTML = content;
     // Add double-click event listeners to each card
-    const cardsItems = document.querySelectorAll(".card");
-    cardsItems.forEach((card) => {
-        card.addEventListener("dblclick", function (ev) {
+    const cardsDeleteButtons = document.querySelectorAll(".card .delete");
+    cardsDeleteButtons.forEach((btn) => {
+        btn.addEventListener("click", function (ev) {
             var _a;
             const target = ev.target;
-            const playerNameElement = (_a = target
-                .closest(".card")) === null || _a === void 0 ? void 0 : _a.querySelector(".name");
-            if (playerNameElement) {
-                deletePlayer(playerNameElement.innerHTML);
-                displayPlayers(getPlayers()); // Update the displayed players after removal
+            const playerId = (_a = target
+                .closest(".card")) === null || _a === void 0 ? void 0 : _a.id;
+            // ?.querySelector("#id") as HTMLElement;
+            console.log(playerId);
+            if (playerId) {
+                deletePlayer(playerId);
+                displayPlayers(getPlayers());
             }
         });
     });
 }
 // -----------------------------
 //        remove player function
-function deletePlayer(playerName) {
+function deletePlayer(playerId) {
     let players = getPlayers();
-    const updatedPlayers = players.filter((player) => player.name !== playerName);
+    const updatedPlayers = players.filter((player) => player.id != Number(playerId));
+    console.log(updatedPlayers);
     if (players.length !== updatedPlayers.length) {
+        // save players , show green wlert , dislay palyers
         setPlayers(updatedPlayers);
         greenAlert("Player removed successfully");
         displayPlayers(updatedPlayers);
