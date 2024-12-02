@@ -7,10 +7,10 @@ function getPlayers(): Player[] {
   let players: Player[] = [];
   const storedPlayers = localStorage.getItem("players");
   if (storedPlayers) {
-    players = JSON.parse(storedPlayers)
+    players = JSON.parse(storedPlayers);
   }
   // console.log(players);
-  
+
   return players;
 }
 //-----------------------------------
@@ -22,47 +22,54 @@ function setPlayers(players: Player[]): void {
 //-----------------------------------
 //      add Player function
 function addPlayer() {
-  // Get data from form
-  const name = document.getElementById("name") as HTMLInputElement;
-  const position = document.getElementById("position") as HTMLInputElement;
-  const nationality = document.getElementById("nationality") as HTMLSelectElement;
-  const club = document.getElementById("club") as HTMLInputElement;
-  const ratingInput = document.getElementById("rating") as HTMLInputElement;
+  try {
+    // Get data from form
+    const name = document.getElementById("name") as HTMLInputElement;
+    const position = document.getElementById("position") as HTMLInputElement;
+    const nationality = document.getElementById(
+      "nationality"
+    ) as HTMLSelectElement;
+    const club = document.getElementById("club") as HTMLInputElement;
+    const ratingInput = document.getElementById("rating") as HTMLInputElement;
 
-  // Form validation
-  if (
-    !name.value ||
-    !position.value ||
-    !nationality.value ||
-    !club.value ||
-    !ratingInput.value
-  ) {
-    redAlert("All fields are required.");
-    return;
+    // Form validation
+    // Validate form inputs
+    if (
+      !name?.value.trim() ||
+      !position?.value.trim() ||
+      !nationality?.value.trim() ||
+      !club?.value.trim() ||
+      !ratingInput?.value.trim()
+    ) {
+      redAlert("All fields are required.");
+      return;
+    }
+
+    // Create player object
+    const rating: number = parseInt(ratingInput.value, 10) || 0;
+    let players = getPlayers();
+    let id = players.length > 0 ? players[players.length - 1].id + 1 : 1;
+
+    const player = new Player(
+      id,
+      name.value,
+      position.value,
+      nationality.value,
+      club.value,
+      rating
+    );
+    console.log(player);
+    console.log(players);
+
+    // Add player to list
+    players.push(player);
+    setPlayers(players);
+
+    greenAlert("Player added successfully");
+  } catch (error) {
+    console.error("Error adding player:", error);
+    redAlert("An unexpected error occurred. Please try again.");
   }
-
-  // Create player object
-  const rating: number = parseInt(ratingInput.value, 10) || 0;
-  let players = getPlayers();
-  let id = players.length > 0 ? players[players.length - 1].id + 1 : 1;
-
-  const player = new Player(
-    id,
-    name.value,
-    position.value,
-    nationality.value,
-    club.value,
-    rating
-  );
-  console.log(player);
-  console.log(players);
-  
-  
-  // Add player to list
-  players.push(player);
-  setPlayers(players);
-
-  greenAlert("Player added successfully");
 }
 
 //-----------------------------------
@@ -85,7 +92,6 @@ function updatePlayer(updatedPlayer: Player) {
 function card(player: Player): string {
   let { id, photo, flag, nationality, rating, position, name, club } = player;
 
-  
   const defaultPhoto = "./assets/images/unknown-player.png";
   const defaultFlag = "./assets/images/unknown-flag.png";
 
@@ -93,7 +99,7 @@ function card(player: Player): string {
   let playerFlag = flag ? flag : defaultFlag;
 
   // console.log(player.rating);
-  
+
   if (!rating) {
     rating = player._rating;
   }
@@ -134,12 +140,10 @@ function displayPlayers(players: Player[]) {
   cardsDeleteButtons.forEach((btn) => {
     btn.addEventListener("click", function (ev) {
       const target = ev.target as HTMLElement;
-      const playerId = target
-        .closest(".card")
-        ?.id
-        // ?.querySelector("#id") as HTMLElement;
-        console.log(playerId);
-        
+      const playerId = target.closest(".card")?.id;
+      // ?.querySelector("#id") as HTMLElement;
+      console.log(playerId);
+
       if (playerId) {
         deletePlayer(playerId);
         displayPlayers(getPlayers());
@@ -152,8 +156,10 @@ function displayPlayers(players: Player[]) {
 
 function deletePlayer(playerId: string) {
   let players = getPlayers();
-  const updatedPlayers = players.filter((player) => player.id != Number(playerId));
-  console.log( updatedPlayers);
+  const updatedPlayers = players.filter(
+    (player) => player.id != Number(playerId)
+  );
+  console.log(updatedPlayers);
 
   if (players.length !== updatedPlayers.length) {
     // save players , show green wlert , dislay palyers
