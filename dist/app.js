@@ -26,7 +26,7 @@ function showData() {
                 return;
             }
         }
-        console.log(players);
+        // console.log(players);
         displayPlayers(players);
     });
 }

@@ -1,4 +1,4 @@
-import { greenAlert, redAlert } from "./alertjs.";
+import { greenAlert, redAlert } from "./alert";
 function getEquipePlayers() {
     let equipeData = localStorage.getItem("equipe");
     if (equipeData) {

@@ -1,6 +1,6 @@
 // import Player from "./modules/Player.ts";
 import { redAlert, greenAlert } from "./functions/alert.js";
-import { addPlayer, displayPlayers, getPlayers, removePlayer, setPlayers } from "./functions/playerFunctions.js";
+import { addPlayer, displayPlayers, getPlayers, deletePlayer, setPlayers } from "./functions/playerFunctions.js";
 import Player from "./modules/Player";
 
 const url = "http://localhost:3000/players";
@@ -17,7 +17,7 @@ async function showData() {
             return;
         }
     }
-    console.log(players);
+    // console.log(players);
     
     displayPlayers(players);
 }
