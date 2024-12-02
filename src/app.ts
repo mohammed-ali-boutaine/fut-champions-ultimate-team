@@ -1,12 +1,12 @@
-// import Player from "./modules/Player.ts";
 import { redAlert, greenAlert } from "./functions/alert.js";
 import { addPlayer, displayPlayers, getPlayers, deletePlayer, setPlayers } from "./functions/playerFunctions.js";
 import Player from "./modules/Player";
 
 const url = "http://localhost:3000/players";
 
+// Fetch and display player data
 async function showData() {
-    let players:Player[] = getPlayers();
+    let players: Player[] = getPlayers();
     if (players.length === 0) {
         try {
             const res = await fetch(url);
@@ -17,23 +17,20 @@ async function showData() {
             return;
         }
     }
-    // console.log(players);
-    
     displayPlayers(players);
 }
 
-const formContainer = document.getElementById("add-player-form") as HTMLDivElement
-
+// Handle form submission for adding a new player
+const formContainer = document.getElementById("add-player-form") as HTMLDivElement;
 document.querySelector("#add-player-form form")?.addEventListener("submit", function (ev) {
     ev.preventDefault();
     addPlayer();
     formContainer.classList.toggle("hidden");
-
     displayPlayers(getPlayers());
 });
 
+// Handle player card interactions
 const playerDivs = document.querySelectorAll(".player") as NodeListOf<HTMLDivElement>;
-
 playerDivs.forEach(playerDiv => {
     playerDiv.addEventListener("click", function (ev: MouseEvent) {
         const cardsContainer = document.querySelector(".cards") as HTMLDivElement;
@@ -44,12 +41,10 @@ playerDivs.forEach(playerDiv => {
 
         const handleCardClick = (cardEvent: MouseEvent) => {
             const card = cardEvent.currentTarget as HTMLDivElement;
-
             playerDiv.innerHTML = card.innerHTML;
             console.log("Card clicked:", cardEvent);
 
             cardsContainer?.classList.remove("shaking");
-
             cards.forEach(card => card.removeEventListener("click", handleCardClick));
         };
 
@@ -59,6 +54,5 @@ playerDivs.forEach(playerDiv => {
     });
 });
 
-
-
+// Initialize the application by showing data
 showData();

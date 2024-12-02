@@ -9,7 +9,7 @@ function getPlayers(): Player[] {
   if (storedPlayers) {
     players = JSON.parse(storedPlayers)
   }
-  console.log(players);
+  // console.log(players);
   
   return players;
 }
@@ -25,9 +25,7 @@ function addPlayer() {
   // Get data from form
   const name = document.getElementById("name") as HTMLInputElement;
   const position = document.getElementById("position") as HTMLInputElement;
-  const nationality = document.getElementById(
-    "nationality"
-  ) as HTMLSelectElement;
+  const nationality = document.getElementById("nationality") as HTMLSelectElement;
   const club = document.getElementById("club") as HTMLInputElement;
   const ratingInput = document.getElementById("rating") as HTMLInputElement;
 
@@ -67,6 +65,9 @@ function addPlayer() {
   greenAlert("Player added successfully");
 }
 
+//-----------------------------------
+// Update an existing player
+
 function updatePlayer(updatedPlayer: Player) {
   let players: Player[] = getPlayers();
   const index = players.findIndex((player) => player.id === updatedPlayer.id);
@@ -78,22 +79,24 @@ function updatePlayer(updatedPlayer: Player) {
     redAlert("Player not found");
   }
 }
+
 //-----------------------------------
+// Generate HTML for a player card
 function card(player: Player): string {
   let { id, photo, flag, nationality, rating, position, name, club } = player;
+
+  
+  const defaultPhoto = "./assets/images/unknown-player.png";
+  const defaultFlag = "./assets/images/unknown-flag.png";
+
+  let playerPhoto = photo ? photo : defaultPhoto;
+  let playerFlag = flag ? flag : defaultFlag;
 
   // console.log(player.rating);
   
   if (!rating) {
     rating = player._rating;
-}
-  const defaultPhoto = "./assets/images/unknown-player.png";
-  const defaultFlag = "./assets/images/unknown-flag.png";
-
-  let playerPhoto = photo ? photo : defaultPhoto;
-  let playerFlag = photo ? flag : defaultFlag;
-
-  
+  }
 
   return `
     <div class="card" id="${id}">
@@ -116,7 +119,8 @@ function card(player: Player): string {
     </div>
   `;
 }
-
+//-----------------------------------
+// Display all players
 function displayPlayers(players: Player[]) {
   const content = players.map(card).join("");
   const cardsDiv = document.getElementById("cards") as HTMLDivElement;
@@ -135,7 +139,7 @@ function displayPlayers(players: Player[]) {
         ?.querySelector(".name") as HTMLElement;
       if (playerNameElement) {
         deletePlayer(playerNameElement.innerHTML);
-        displayPlayers(getPlayers()); // Update the displayed players after removal
+        displayPlayers(getPlayers());
       }
     });
   });
@@ -147,6 +151,7 @@ function deletePlayer(playerName: string) {
   let players = getPlayers();
   const updatedPlayers = players.filter((player) => player.name !== playerName);
   if (players.length !== updatedPlayers.length) {
+    // save players , show green wlert , dislay palyers
     setPlayers(updatedPlayers);
     greenAlert("Player removed successfully");
     displayPlayers(updatedPlayers);

@@ -1,11 +1,15 @@
 import Player from "../modules/Player";
 import { greenAlert, redAlert } from "./alert";
 
+// Interface for EquipePlayer
 interface EquipePlayer {
   position: string;
   player: Player;
 }
 
+
+//-----------------------------------
+// Get equipe players from local storage
 function getEquipePlayers(): EquipePlayer[] {
   let equipeData = localStorage.getItem("equipe");
   if (equipeData) {
@@ -18,17 +22,15 @@ function getEquipePlayers(): EquipePlayer[] {
   }
   return [];
 }
-
 //-------------------------------------
-
+//-----------------------------------
+// Save equipe players to local storage
 function setEquipe(equipe: EquipePlayer[]): void {
   localStorage.setItem("equipe", JSON.stringify(equipe));
 }
-
-// add player to equipe
-// Formation 4-3-3 : Comprend 1 GK, 2 CB (Défenseurs centraux), 1 LB (Latéral gauche), 1 RB (Latéral droit), 3 CM (Milieux centraux), 1 LW (Ailier gauche), 1 RW (Ailier droit), et 1 ST (Attaquant central)
-
-
+//-----------------------------------
+// Add a player to the equipe
+// Formation 4-3-3: Includes 1 GK, 2 CB, 1 LB, 1 RB, 3 CM, 1 LW, 1 RW, and 1 ST
 function addEquipePlayer(position: string, player: Player) {
   let equipe: EquipePlayer[] = getEquipePlayers();
 
@@ -48,6 +50,8 @@ function addEquipePlayer(position: string, player: Player) {
   greenAlert("Player added to equipe successfully");
 }
 
+//-----------------------------------
+// Remove a player from the equipe by name
 function removeEquipePlayer(playerName: string) {
   let equipe: EquipePlayer[] = getEquipePlayers();
 
@@ -63,9 +67,12 @@ function removeEquipePlayer(playerName: string) {
   setEquipe(updatedEquipe);
   greenAlert("Player removed from equipe successfully.");
 }
+
+//-----------------------------------
 // Display the current team (for debugging)
 function showEquipePlayers(): void {
   const equipe = getEquipePlayers();
   console.log(equipe);
 }
+
 export { addEquipePlayer, removeEquipePlayer, showEquipePlayers, getEquipePlayers, setEquipe };
