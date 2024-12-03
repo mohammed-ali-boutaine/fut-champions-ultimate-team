@@ -1,0 +1,38 @@
+
+
+#players-menu{
+     display: none;
+     position: absolute;
+     top: 100px;
+     left: 0px;
+     background-color: antiquewhite;
+}
+
+@media screen and (max-width:800px) {
+     #players-menu{
+          display: block;
+     }
+     .container .field {
+          padding: 20px 10px 0px;
+          margin: auto;
+     }
+     .card-container  #cards{
+          position: absolute;
+          left: -500px;
+          width: 0px;
+     }
+   
+     .card-container.active  #cards{
+          position: absolute;
+          /* margin-top: 50px; */
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-50%);
+          width: 80%;
+          height: 80vh;
+
+     }
+     .card-container.active  .field{
+          display: none;
+     }
+}

@@ -80,11 +80,11 @@ function card(player) {
         rating = player._rating;
     }
     return `
-    <div class="card" id="${id}">
-    <a class="edit" href="./edit/?id=${id}">
+    <div title="${player.name}" class="card" id="${id}">
+    <a title="edit player" class="edit" href="./edit/?id=${id}">
     <img src="./assets/images/edit.svg"/>
     </a>
-    <button class="delete">
+    <button  title="delete player" class="delete">
         <img src="./assets/images/trash.svg"/>
     </button>
         <div class="stat">

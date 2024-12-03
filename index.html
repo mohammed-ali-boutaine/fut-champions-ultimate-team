@@ -30,13 +30,35 @@
     <title>FUT Champions - Squad Builder</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/micro.css">
+    <link rel="stylesheet" href="./assets/css/card.css">
+    <link rel="stylesheet" href="./assets/css/media.css">
   </head>
 
 
   <body>
-    
-    
 
+    <div class="background">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+   </div>
 
     <nav class="container">
       <div class="child nav-container">
@@ -58,36 +80,59 @@
       </div>
     </nav>
 
-    <div class="container">
-      <div id="cards" class="cards">
+    <div class="container card-container actzive">
+
+      <div class="players-menu" id="players-menu">
+        menu
+      </div>
+      <div id="cards" class="cards active container-child">
         <div id="loader-container">
           <div class="loader"></div>
         </div>
 
       </div>
       <!-- /--------------------------------------------- -->
-      <div class="field">
+      <div class="field container-child">
         <div class="attack">
-          <div class="player-square player cf card" ><img class="plus-image" src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="player-square player cf card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="player-square player lm card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="player-square player cm card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="player-square player cm card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="player-square player rm card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="player-square player cf " ><img class="plus-image" src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="player-square player cf "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="player-square player lm "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="player-square player cm "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="player-square player cm "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="player-square player rm "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
         </div>
         <div class="defence">
-          <div class="defence-square player lb card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="defence-square player cb card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="defence-square player cb card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
-          <div class="defence-square player rb card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="defence-square player lb "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="defence-square player cb "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="defence-square player cb "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+          <div class="defence-square player rb "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
         </div>
-        <div class="goal-keper player gk card"><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
+        <div class="goal-keper player gk "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
       </div>
       <!-- /--------------------------------------------- -->
 
       <!-- <div class="extra-players"></div> -->
     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     <!-- add player  -->
     <div class="form-container hidden" id="add-player-form">
       <div class="form-holder">
@@ -171,9 +216,7 @@
 
     <!-- ---------------------------------  -->
   </body>
-  <!-- <script src="./main.js"></script> -->
-  <!-- <script src="./ts/app.js"></script> -->
-  <!-- <script src="src/app.js" defer></script> -->
+
 
   <script type="module" src="./dist/app.js"></script>
   <script>
@@ -189,16 +232,17 @@
 
     addPlayerBtn.addEventListener("click", () => {
       formContainer.classList.toggle("hidden");
-      // body.classList.toggle("blurred");
     });
 
     closeForm.addEventListener("click", () => {
       formContainer.classList.toggle("hidden");
-      // body.classList.toggle("blurred");
     });
 
-
-
+    let playersMenu = document.querySelector("#players-menu")
+    let cardContainer = document.querySelector(".card-container")
+    playersMenu.addEventListener("click",function(){
+      cardContainer.classList.toggle("active")
+    })
 
   </script>
 </html>

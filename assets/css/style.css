@@ -33,8 +33,9 @@ body {
 
 nav {
      width: 100%;
-     height: 80px;
+     /* height: 80px; */
      color: white;
+     padding: 10px 20px;
 }
 
 nav a {
@@ -76,12 +77,11 @@ nav a {
      border-color: rgb(130, 123, 123);
      outline: none;
 }
-
 .container {
      display: flex;
      justify-content: space-between;
-     align-items: center;
-     padding: 20px;
+     /* align-items: center; */
+     /* padding: 20px; */
      max-width: 1200px;
      width: 100%;
      margin: auto;
@@ -91,14 +91,19 @@ nav a {
      max-width: 1200px;
      width: 100%;
 }
+.container-child{
+     max-width: 500px;
+     width: 100%;
+     border-radius: 24px;
 
+}
 .container .field {
      padding: 40px 40px 0;
-     max-width: 550px;
-     width: 100%;
-     height: 800px;
+
+     height: 700px;
      background-image: url("../images/field.jpg");
-     background-size: contain;
+     background-size: cover;
+     background-position: center;
      background-repeat: no-repeat;
      overflow: hidden;
      border-radius: 25px;
@@ -111,10 +116,12 @@ nav a {
      display: flex;
      align-items: center;
      justify-content: center;
+     border: 1px solid black;
 }
 
 .field .goal-keper {
      height: 25%;
+     width: 25%;
 }
 
 .field .defence {
@@ -148,3 +155,141 @@ nav a {
 .goal-keper{
      margin: auto;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* //   add player form  */
+
+
+
+
+/* form style  */
+
+.form-container {
+     position: absolute;
+     z-index: 1000;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background: #fff;
+     border-radius: 10px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     width: 400px;
+   }
+   .form-container .form-holder {
+     position: relative;
+     padding: 20px;
+   }
+   .form-container .close {
+     position: absolute;
+     right: 9px;
+     top: 8px;
+     width: 25px;
+   }
+   
+   .form-container h2 {
+     margin: 0 0 20px;
+     text-align: center;
+     color: #333;
+   }
+   
+   .form-group {
+     margin-bottom: 15px;
+   }
+   
+   .form-group label {
+     display: block;
+     font-weight: bold;
+     margin-bottom: 5px;
+     color: #555;
+   }
+   
+   .form-group input,
+   .form-group select {
+     width: 100%;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     font-size: 14px;
+   }
+   
+   .form-group img {
+     display: block;
+     margin: 0 auto 10px;
+     border-radius: 50%;
+     max-width: 100px;
+     height: auto;
+   }
+   
+   .form-group input[type="file"] {
+     padding: 5px;
+   }
+   .buttons-container {
+     display: flex;
+     justify-content: space-between;
+   }
+   .buttons-container button {
+     width: 40%;
+     padding: 10px;
+     border: none;
+     color: black;
+     background-color: #ccc;
+     font-size: 16px;
+     border-radius: 5px;
+     cursor: pointer;
+   }
+   .buttons-container button:hover {
+     background-color: #9b9b9b;
+   }
+   
+   .form-group button.active {
+     background-color: #007bff;
+     color: #fff;
+   }
+   
+   .form-group button.active:hover {
+     background-color: #0056b3;
+   }
+   

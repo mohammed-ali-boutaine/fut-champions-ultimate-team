@@ -41,9 +41,17 @@ playerDivs.forEach(playerDiv => {
 
         const handleCardClick = (cardEvent: MouseEvent) => {
             const card = cardEvent.currentTarget as HTMLDivElement;
-            playerDiv.innerHTML = card.innerHTML;
+        
+            const firstChild = playerDiv.firstElementChild;
+        
+            if (firstChild) {
+                playerDiv.replaceChild(card, firstChild);
+            } else {
+                playerDiv.appendChild(card);
+            }
+        
             console.log("Card clicked:", cardEvent);
-
+        
             cardsContainer?.classList.remove("shaking");
             cards.forEach(card => card.removeEventListener("click", handleCardClick));
         };
