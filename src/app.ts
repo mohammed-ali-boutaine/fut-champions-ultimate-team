@@ -1,5 +1,5 @@
-import { redAlert, greenAlert } from "./functions/alert.js";
-import { addPlayer, displayPlayers, getPlayers, deletePlayer, setPlayers } from "./functions/playerFunctions.js";
+import { redAlert, } from "./functions/alert.js";
+import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
 import Player from "./modules/Player";
 
 const url = "http://localhost:3000/players";

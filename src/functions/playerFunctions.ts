@@ -262,9 +262,7 @@ function deletePlayer(playerId: string) {
 
 export {
   displayPlayers,
-  updatePlayer,
   getPlayers,
   setPlayers,
   addPlayer,
-  deletePlayer,
 };
