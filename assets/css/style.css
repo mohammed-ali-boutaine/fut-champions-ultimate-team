@@ -57,7 +57,7 @@ nav a {
      padding: 12px 18px;
      border: none;
      border-radius: 12px;
-     background-color: rgb(150, 143, 143);
+     background-color:#202020;
      color: white;
      font-weight: 600;
      font-size: 17px;
@@ -65,16 +65,19 @@ nav a {
 }
 
 .actions button:hover {
-     background-color: rgb(130, 123, 123);
+     background-color: rgba(130, 123, 123, 0.486);
 }
 
-.formation option {
+/* .formation option {
+     background-color: rgba(130, 123, 123, 0.486);
+     color: white;
+} */
+/* .formation option:hover {
      background-color: rgb(150, 143, 143);
      color: white;
-}
-
-.formation:focus {
-     border-color: rgb(130, 123, 123);
+} */
+.formation:focus,.formation:hover {
+     background-color: rgba(130, 123, 123, 0.486);
      outline: none;
 }
 .container {

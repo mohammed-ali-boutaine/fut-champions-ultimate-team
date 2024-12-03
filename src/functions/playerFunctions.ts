@@ -1,6 +1,13 @@
 import Player from "../modules/Player.js";
 import { greenAlert, redAlert } from "./alert.js";
 
+
+const playerId = document.getElementById("player-id") as HTMLInputElement;
+const name = document.getElementById("name") as HTMLInputElement;
+const position = document.getElementById("position") as HTMLInputElement;
+const nationality = document.getElementById("nationality") as HTMLSelectElement;
+const club = document.getElementById("club") as HTMLInputElement;
+const ratingInput = document.getElementById("rating") as HTMLInputElement;
 //-----------------------------------
 //       get Player function
 function getPlayers(): Player[] {
@@ -25,12 +32,7 @@ function setPlayers(players: Player[]): void {
 function addPlayer() {
   try {
     // Get data from form
-    const playerId = document.getElementById("player-id") as HTMLInputElement;
-    const name = document.getElementById("name") as HTMLInputElement;
-    const position = document.getElementById("position") as HTMLInputElement;
-    const nationality = document.getElementById("nationality") as HTMLSelectElement;
-    const club = document.getElementById("club") as HTMLInputElement;
-    const ratingInput = document.getElementById("rating") as HTMLInputElement;
+
 
 
     let players = getPlayers()
@@ -43,6 +45,7 @@ function addPlayer() {
       !ratingInput?.value.trim()
     ) {
       redAlert("All fields are required.");
+      clearForm()
       return;
     }
 
@@ -113,7 +116,7 @@ console.log(updatedPlayer);
     // Populate form with player's data
     const playerId = document.getElementById("player-id") as HTMLInputElement;
 
-    playerId.value = "";
+  clearForm()
 
 }
 
@@ -204,7 +207,7 @@ function showEdit(id:number){
   // console.log("id ",id);
   const formContainer = document.getElementById("add-player-form")as HTMLDivElement
 
-  const player: Player | undefined = getPlayers().find((player) => player.id == id;
+  const player: Player | undefined = getPlayers().find((player) => player.id == id);
 
 
   // Handle case where player is not found
@@ -213,14 +216,6 @@ function showEdit(id:number){
     return;
   }
 
-
-  // Get form elements
-  const playerId = document.getElementById("player-id") as HTMLInputElement;
-  const name = document.getElementById("name") as HTMLInputElement;
-  const position = document.getElementById("position") as HTMLInputElement;
-  const nationality = document.getElementById("nationality") as HTMLSelectElement;
-  const club = document.getElementById("club") as HTMLInputElement;
-  const ratingInput = document.getElementById("rating") as HTMLInputElement;
   const formTitle = document.getElementById("form-title") as HTMLHeadElement;
 
 
@@ -258,6 +253,15 @@ function deletePlayer(playerId: string) {
   } else {
     redAlert("Player not found");
   }
+}
+function clearForm(){
+
+  playerId.value = "";
+  name.value = "";
+  position.value = "";
+  nationality.value = "";
+  club.value = "";
+  ratingInput.value = "";
 }
 
 export {

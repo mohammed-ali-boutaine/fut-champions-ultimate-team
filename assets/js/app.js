@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var _a;
-import { redAlert } from "./functions/alert.js";
+import { redAlert, } from "./functions/alert.js";
 import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
 const url = "http://localhost:3000/players";
 // Fetch and display player data

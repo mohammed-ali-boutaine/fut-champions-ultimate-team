@@ -1,5 +1,11 @@
 import Player from "../modules/Player.js";
 import { greenAlert, redAlert } from "./alert.js";
+const playerId = document.getElementById("player-id");
+const name = document.getElementById("name");
+const position = document.getElementById("position");
+const nationality = document.getElementById("nationality");
+const club = document.getElementById("club");
+const ratingInput = document.getElementById("rating");
 //-----------------------------------
 //       get Player function
 function getPlayers() {
@@ -22,12 +28,6 @@ function setPlayers(players) {
 function addPlayer() {
     try {
         // Get data from form
-        const playerId = document.getElementById("player-id");
-        const name = document.getElementById("name");
-        const position = document.getElementById("position");
-        const nationality = document.getElementById("nationality");
-        const club = document.getElementById("club");
-        const ratingInput = document.getElementById("rating");
         let players = getPlayers();
         // Validate form inputs
         if (!(name === null || name === void 0 ? void 0 : name.value.trim()) ||
@@ -36,6 +36,7 @@ function addPlayer() {
             !(club === null || club === void 0 ? void 0 : club.value.trim()) ||
             !(ratingInput === null || ratingInput === void 0 ? void 0 : ratingInput.value.trim())) {
             redAlert("All fields are required.");
+            clearForm();
             return;
         }
         // Parse rating and player ID
@@ -90,7 +91,7 @@ function updatePlayer(updatedPlayer) {
     }
     // Populate form with player's data
     const playerId = document.getElementById("player-id");
-    playerId.value = "";
+    clearForm();
 }
 //-----------------------------------
 // Generate HTML for a player card
@@ -170,13 +171,6 @@ function showEdit(id) {
         redAlert("Player not found.");
         return;
     }
-    // Get form elements
-    const playerId = document.getElementById("player-id");
-    const name = document.getElementById("name");
-    const position = document.getElementById("position");
-    const nationality = document.getElementById("nationality");
-    const club = document.getElementById("club");
-    const ratingInput = document.getElementById("rating");
     const formTitle = document.getElementById("form-title");
     // Populate form with player's data
     playerId.value = String(player.id);
@@ -207,4 +201,12 @@ function deletePlayer(playerId) {
         redAlert("Player not found");
     }
 }
-export { displayPlayers, updatePlayer, getPlayers, setPlayers, addPlayer, deletePlayer, };
+function clearForm() {
+    playerId.value = "";
+    name.value = "";
+    position.value = "";
+    nationality.value = "";
+    club.value = "";
+    ratingInput.value = "";
+}
+export { displayPlayers, getPlayers, setPlayers, addPlayer, };

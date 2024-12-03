@@ -1,13 +1,13 @@
 import { greenAlert, redAlert } from "./alert";
-// enum
+const equipePLayers = Array(11).fill(null);
 //-----------------------------------
 // Get equipe players from local storage
 function getEquipePlayers() {
     let equipeData = localStorage.getItem("equipe");
     if (equipeData) {
         try {
-            const localStorageEquipe = JSON.parse(equipeData);
-            return localStorageEquipe;
+            const equipePLayers = JSON.parse(equipeData);
+            return equipePLayers;
         }
         catch (error) {
             return [];
@@ -23,30 +23,34 @@ function setEquipe(equipe) {
 }
 //-----------------------------------
 // Add a player to the equipe
-// Formation 4-3-3: Includes 1 GK, 2 CB, 1 LB, 1 RB, 3 CM, 1 LW, 1 RW, and 1 ST
-function addEquipePlayer(position, player) {
+function addEquipePlayer(index, player) {
     let equipe = getEquipePlayers();
+    if (index < 0 || index >= equipe.length) {
+        redAlert("Invalid index. Please choose a valid position.");
+        return;
+    }
     // Check if the player already exists in the team
-    const existingPlayer = equipe.find((equipePlayer) => equipePlayer.player.id === player.id);
+    const existingPlayer = equipe.find((equipePlayer) => (equipePlayer === null || equipePlayer === void 0 ? void 0 : equipePlayer.id) === player.id);
     if (existingPlayer) {
         redAlert("Player already in the team.");
         return;
     }
-    const equipePlayer = { position, player };
-    equipe.push(equipePlayer);
+    equipe[index] = player;
+    // const equipePlayer: EquipePlayer = { position, player };
+    // equipe.push(equipePlayer);
     setEquipe(equipe);
     greenAlert("Player added to equipe successfully");
 }
 //-----------------------------------
 // Remove a player from the equipe by name
-function removeEquipePlayer(playerName) {
+function removeEquipePlayer(index) {
     let equipe = getEquipePlayers();
-    const updatedEquipe = equipe.filter((equipePlayer) => equipePlayer.player.name !== playerName);
-    if (updatedEquipe.length === equipe.length) {
-        redAlert("Player not found in the team.");
+    if (index < 0 || index >= equipe.length) {
+        redAlert("Invalid index. Please choose a valid position.");
         return;
     }
-    setEquipe(updatedEquipe);
+    equipe[index] = null;
+    setEquipe(equipe);
     greenAlert("Player removed from equipe successfully.");
 }
 //-----------------------------------
