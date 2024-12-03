@@ -21,18 +21,19 @@ function setPlayers(players: Player[]): void {
 }
 //-----------------------------------
 //      add Player function
+// Add or update player function
 function addPlayer() {
   try {
     // Get data from form
+    const playerId = document.getElementById("player-id") as HTMLInputElement;
     const name = document.getElementById("name") as HTMLInputElement;
     const position = document.getElementById("position") as HTMLInputElement;
-    const nationality = document.getElementById(
-      "nationality"
-    ) as HTMLSelectElement;
+    const nationality = document.getElementById("nationality") as HTMLSelectElement;
     const club = document.getElementById("club") as HTMLInputElement;
     const ratingInput = document.getElementById("rating") as HTMLInputElement;
 
-    // Form validation
+
+    let players = getPlayers()
     // Validate form inputs
     if (
       !name?.value.trim() ||
@@ -45,11 +46,30 @@ function addPlayer() {
       return;
     }
 
-    // Create player object
+    // Parse rating and player ID
     const rating: number = parseInt(ratingInput.value, 10) || 0;
-    let players = getPlayers();
-    let id = players.length > 0 ? players[players.length - 1].id + 1 : 1;
+    const id: number = parseInt(playerId.value, 10) || 0;
 
+    // let players = getPlayers();
+
+    if (playerId.value !== "") {
+
+      // Update existing player
+      let player:Player | undefined = players.find( player => player.id == Number(playerId.value))
+      if(!player){
+        redAlert("error");
+        return
+      }
+
+      player.name = name.value
+      player.position = position.value,
+      player.nationality =  nationality.value
+      player.club = club.value
+      player.rating = rating
+
+      updatePlayer(player)
+    } else {
+          // Create Player instance
     const player = new Player(
       id,
       name.value,
@@ -58,16 +78,17 @@ function addPlayer() {
       club.value,
       rating
     );
-    console.log(player);
-    console.log(players);
+      // Assign new ID for new player
+      const newId = players.length > 0 ? Number(players[players.length - 1].id) + 1 : 1;
+      player.id = newId;
 
-    // Add player to list
-    players.push(player);
-    setPlayers(players);
-
-    greenAlert("Player added successfully");
+      // Add player to the list
+      players.push(player);
+      setPlayers(players);
+      greenAlert("Player added successfully");
+    }
   } catch (error) {
-    console.error("Error adding player:", error);
+    console.error("Error handling player:", error);
     redAlert("An unexpected error occurred. Please try again.");
   }
 }
@@ -76,8 +97,12 @@ function addPlayer() {
 // Update an existing player
 
 function updatePlayer(updatedPlayer: Player) {
+  
+console.log(updatedPlayer);
+
+// use id
   let players: Player[] = getPlayers();
-  const index = players.findIndex((player) => player.id === updatedPlayer.id);
+  const index = players.findIndex((player) => player.id == updatedPlayer.id);
   if (index !== -1) {
     players[index] = updatedPlayer;
     setPlayers(players);
@@ -85,6 +110,11 @@ function updatePlayer(updatedPlayer: Player) {
   } else {
     redAlert("Player not found");
   }
+    // Populate form with player's data
+    const playerId = document.getElementById("player-id") as HTMLInputElement;
+
+    playerId.value = "";
+
 }
 
 //-----------------------------------
@@ -106,7 +136,7 @@ function card(player: Player): string {
 
   return `
     <div title="${player.name}" class="card" id="${id}">
-    <a title="edit player" class="edit" href="./edit/?id=${id}">
+    <a title="edit player" class="edit"">
     <img src="./assets/images/edit.svg"/>
     </a>
     <button  title="delete player" class="delete">
@@ -137,6 +167,23 @@ function displayPlayers(players: Player[]) {
     ".card .delete"
   ) as NodeListOf<HTMLButtonElement>;
 
+  const cardsEditButtons = document.querySelectorAll(
+    ".card .edit"
+  ) as NodeListOf<HTMLButtonElement>;
+  cardsEditButtons.forEach((btn) => {
+    btn.addEventListener("click", function (ev) {
+      const target = ev.target as HTMLElement;
+      const playerId = Number(target.closest(".card")?.id)
+      // ?.querySelector("#id") as HTMLElement;
+      // console.log(playerId);
+
+      if (playerId) {
+        showEdit(playerId);
+        displayPlayers(getPlayers());
+      }
+    });
+  });
+
   cardsDeleteButtons.forEach((btn) => {
     btn.addEventListener("click", function (ev) {
       const target = ev.target as HTMLElement;
@@ -150,6 +197,48 @@ function displayPlayers(players: Player[]) {
       }
     });
   });
+}
+
+function showEdit(id:number){
+
+  // console.log("id ",id);
+  const formContainer = document.getElementById("add-player-form")as HTMLDivElement
+
+  const player: Player | undefined = getPlayers().find((player) => player.id == id;
+
+
+  // Handle case where player is not found
+  if (!player) {
+    redAlert("Player not found.");
+    return;
+  }
+
+
+  // Get form elements
+  const playerId = document.getElementById("player-id") as HTMLInputElement;
+  const name = document.getElementById("name") as HTMLInputElement;
+  const position = document.getElementById("position") as HTMLInputElement;
+  const nationality = document.getElementById("nationality") as HTMLSelectElement;
+  const club = document.getElementById("club") as HTMLInputElement;
+  const ratingInput = document.getElementById("rating") as HTMLInputElement;
+  const formTitle = document.getElementById("form-title") as HTMLHeadElement;
+
+
+  // Populate form with player's data
+  playerId.value = String(player.id);
+  name.value = player.name;
+  position.value = player.position;
+  nationality.value = player.nationality;
+  club.value = player.club;
+  ratingInput.value = String(player.rating);
+
+
+  // Update form title to reflect edit mode
+  if (formTitle) {
+    formTitle.textContent = "Add Player";
+  }
+  formContainer.classList.remove("hidden");
+
 }
 // -----------------------------
 //        remove player function

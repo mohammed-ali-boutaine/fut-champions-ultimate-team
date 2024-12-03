@@ -47,14 +47,11 @@ playerDivs.forEach(playerDiv => {
         console.log("Player clicked:", ev);
         const handleCardClick = (cardEvent) => {
             const card = cardEvent.currentTarget;
-            // Assuming playerDiv already has some child to be replaced
             const firstChild = playerDiv.firstElementChild;
             if (firstChild) {
-                // Replace the first child of playerDiv with the card
                 playerDiv.replaceChild(card, firstChild);
             }
             else {
-                // If there's no child, append the card
                 playerDiv.appendChild(card);
             }
             console.log("Card clicked:", cardEvent);
