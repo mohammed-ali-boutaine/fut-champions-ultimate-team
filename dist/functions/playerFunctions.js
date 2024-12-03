@@ -101,7 +101,7 @@ function card(player) {
     let playerPhoto = photo ? photo : defaultPhoto;
     let playerFlag = flag ? flag : defaultFlag;
     // console.log(player.rating);
-    if (!rating) {
+    if (rating == undefined) {
         rating = player._rating;
     }
     return `
@@ -113,7 +113,7 @@ function card(player) {
         <img src="./assets/images/trash.svg"/>
     </button>
         <div class="stat">
-            <h3 class="rating">${rating}-</h3>
+            <h3 class="rating">${rating}</h3>
             <h3 class="position">${position}</h3>
         </div>
         <div class="profil">

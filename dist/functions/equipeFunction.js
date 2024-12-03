@@ -1,4 +1,5 @@
 import { greenAlert, redAlert } from "./alert";
+// enum
 //-----------------------------------
 // Get equipe players from local storage
 function getEquipePlayers() {

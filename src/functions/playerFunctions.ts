@@ -130,7 +130,7 @@ function card(player: Player): string {
 
   // console.log(player.rating);
 
-  if (!rating) {
+  if (rating == undefined) {
     rating = player._rating;
   }
 
@@ -143,7 +143,7 @@ function card(player: Player): string {
         <img src="./assets/images/trash.svg"/>
     </button>
         <div class="stat">
-            <h3 class="rating">${rating}-</h3>
+            <h3 class="rating">${rating}</h3>
             <h3 class="position">${position}</h3>
         </div>
         <div class="profil">

@@ -7,6 +7,7 @@ interface EquipePlayer {
   player: Player;
 }
 
+// enum
 
 //-----------------------------------
 // Get equipe players from local storage
