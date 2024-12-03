@@ -30,7 +30,7 @@ function addEquipePlayer(index, player) {
         return;
     }
     // Check if the player already exists in the team
-    const existingPlayer = equipe.find((equipePlayer) => (equipePlayer === null || equipePlayer === void 0 ? void 0 : equipePlayer.id) === player.id);
+    const existingPlayer = equipe.find((equipePlayer) => equipePlayer?.id === player.id);
     if (existingPlayer) {
         redAlert("Player already in the team.");
         return;

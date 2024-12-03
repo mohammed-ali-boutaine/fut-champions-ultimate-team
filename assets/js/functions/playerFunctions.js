@@ -30,11 +30,11 @@ function addPlayer() {
         // Get data from form
         let players = getPlayers();
         // Validate form inputs
-        if (!(name === null || name === void 0 ? void 0 : name.value.trim()) ||
-            !(position === null || position === void 0 ? void 0 : position.value.trim()) ||
-            !(nationality === null || nationality === void 0 ? void 0 : nationality.value.trim()) ||
-            !(club === null || club === void 0 ? void 0 : club.value.trim()) ||
-            !(ratingInput === null || ratingInput === void 0 ? void 0 : ratingInput.value.trim())) {
+        if (!name?.value.trim() ||
+            !position?.value.trim() ||
+            !nationality?.value.trim() ||
+            !club?.value.trim() ||
+            !ratingInput?.value.trim()) {
             redAlert("All fields are required.");
             clearForm();
             return;
@@ -137,9 +137,8 @@ function displayPlayers(players) {
     const cardsEditButtons = document.querySelectorAll(".card .edit");
     cardsEditButtons.forEach((btn) => {
         btn.addEventListener("click", function (ev) {
-            var _a;
             const target = ev.target;
-            const playerId = Number((_a = target.closest(".card")) === null || _a === void 0 ? void 0 : _a.id);
+            const playerId = Number(target.closest(".card")?.id);
             // ?.querySelector("#id") as HTMLElement;
             // console.log(playerId);
             if (playerId) {
@@ -150,9 +149,8 @@ function displayPlayers(players) {
     });
     cardsDeleteButtons.forEach((btn) => {
         btn.addEventListener("click", function (ev) {
-            var _a;
             const target = ev.target;
-            const playerId = (_a = target.closest(".card")) === null || _a === void 0 ? void 0 : _a.id;
+            const playerId = target.closest(".card")?.id;
             // ?.querySelector("#id") as HTMLElement;
             console.log(playerId);
             if (playerId) {

@@ -1,4 +1,4 @@
-import { redAlert, } from "./functions/alert.js";
+import { redAlert, greenAlert } from "./functions/alert.js";
 import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
 import Player from "./modules/Player";
 
@@ -41,17 +41,10 @@ playerDivs.forEach(playerDiv => {
 
         const handleCardClick = (cardEvent: MouseEvent) => {
             const card = cardEvent.currentTarget as HTMLDivElement;
-        
-            const firstChild = playerDiv.firstElementChild;
-        
-            if (firstChild) {
-                playerDiv.replaceChild(card, firstChild);
-            } else {
-                playerDiv.appendChild(card);
-            }
-        
+            // playerDiv.innerHTML = card.innerHTML;
+            // playerDiv.append = card.innerHTML;
             console.log("Card clicked:", cardEvent);
-        
+
             cardsContainer?.classList.remove("shaking");
             cards.forEach(card => card.removeEventListener("click", handleCardClick));
         };
