@@ -1,15 +1,16 @@
 import Player from "../modules/Player.js";
 import { greenAlert, redAlert } from "./alert.js";
 
-
 const playerId = document.getElementById("player-id") as HTMLInputElement;
 const name = document.getElementById("name") as HTMLInputElement;
 const position = document.getElementById("position") as HTMLInputElement;
 const nationality = document.getElementById("nationality") as HTMLSelectElement;
 const club = document.getElementById("club") as HTMLInputElement;
 const ratingInput = document.getElementById("rating") as HTMLInputElement;
+
 //-----------------------------------
 //       get Player function
+
 function getPlayers(): Player[] {
   let players: Player[] = [];
   const storedPlayers = localStorage.getItem("players");
@@ -18,22 +19,19 @@ function getPlayers(): Player[] {
   }
   return players;
 }
+
 //-----------------------------------
 //      set Player function
-
 function setPlayers(players: Player[]): void {
   localStorage.setItem("players", JSON.stringify(players));
 }
+
 //-----------------------------------
 //      add Player function
 // Add or update player function
 function addPlayer() {
   try {
-    // Get data from form
-
-
-
-    let players = getPlayers()
+    let players = getPlayers();
     // Validate form inputs
     if (
       !name?.value.trim() ||
@@ -43,7 +41,7 @@ function addPlayer() {
       !ratingInput?.value.trim()
     ) {
       redAlert("All fields are required.");
-      clearForm()
+      clearForm();
       return;
     }
 
@@ -51,36 +49,37 @@ function addPlayer() {
     const rating: number = parseInt(ratingInput.value, 10) || 0;
     const id: number = parseInt(playerId.value, 10) || 0;
 
-    // let players = getPlayers();
-
     if (playerId.value !== "") {
-
       // Update existing player
-      let player:Player | undefined = players.find( player => player.id == Number(playerId.value))
-      if(!player){
+      let player: Player | undefined = players.find(
+        (player) => player.id == Number(playerId.value)
+      );
+      if (!player) {
         redAlert("error");
-        return
+        return;
       }
 
-      player.name = name.value
-      player.position = position.value,
-      player.nationality =  nationality.value
-      player.club = club.value
-      player.rating = rating
+      player.name = name.value;
+      (player.position = position.value),
+        (player.nationality = nationality.value);
+      player.club = club.value;
+      player.rating = rating;
 
-      updatePlayer(player)
+      updatePlayer(player);
     } else {
-          // Create Player instance
-    const player = new Player(
-      id,
-      name.value,
-      position.value,
-      nationality.value,
-      club.value,
-      rating
-    );
+      // Create Player instance
+      const player = new Player(
+        id,
+        name.value,
+        position.value,
+        nationality.value,
+        club.value,
+        rating
+      );
       // Assign new ID for new player
-      const newId = players.length > 0 ? Number(players[players.length - 1].id) + 1 : 1;
+      const newId =
+        players.length > 0 ? Number(players[players.length - 1].id) + 1 : 1;
+
       player.id = newId;
 
       // Add player to the list
@@ -97,9 +96,6 @@ function addPlayer() {
 // Update an existing player
 
 function updatePlayer(updatedPlayer: Player) {
-  
-
-// use id
   let players: Player[] = getPlayers();
   const index = players.findIndex((player) => player.id == updatedPlayer.id);
   if (index !== -1) {
@@ -109,11 +105,7 @@ function updatePlayer(updatedPlayer: Player) {
   } else {
     redAlert("Player not found");
   }
-    // Populate form with player's data
-    const playerId = document.getElementById("player-id") as HTMLInputElement;
-
-  clearForm()
-
+  clearForm();
 }
 
 //-----------------------------------
@@ -126,7 +118,6 @@ function card(player: Player): string {
 
   let playerPhoto = photo ? photo : defaultPhoto;
   let playerFlag = flag ? flag : defaultFlag;
-
 
   if (rating == undefined) {
     rating = player._rating;
@@ -171,8 +162,7 @@ function displayPlayers(players: Player[]) {
   cardsEditButtons.forEach((btn) => {
     btn.addEventListener("click", function (ev) {
       const target = ev.target as HTMLElement;
-      const playerId = Number(target.closest(".card")?.id)
-
+      const playerId = Number(target.closest(".card")?.id);
 
       if (playerId) {
         showEdit(playerId);
@@ -194,14 +184,15 @@ function displayPlayers(players: Player[]) {
   });
 }
 
-function showEdit(id:number){
+function showEdit(id: number) {
+  const formContainer = document.getElementById(
+    "add-player-form"
+  ) as HTMLDivElement;
 
-  const formContainer = document.getElementById("add-player-form")as HTMLDivElement
+  const player: Player | undefined = getPlayers().find(
+    (player) => player.id == id
+  );
 
-  const player: Player | undefined = getPlayers().find((player) => player.id == id);
-
-
-  // Handle case where player is not found
   if (!player) {
     redAlert("Player not found.");
     return;
@@ -209,8 +200,6 @@ function showEdit(id:number){
 
   const formTitle = document.getElementById("form-title") as HTMLHeadElement;
 
-
-  // Populate form with player's data
   playerId.value = String(player.id);
   name.value = player.name;
   position.value = player.position;
@@ -218,13 +207,11 @@ function showEdit(id:number){
   club.value = player.club;
   ratingInput.value = String(player.rating);
 
-
   // Update form title to reflect edit mode
   if (formTitle) {
     formTitle.textContent = "Add Player";
   }
   formContainer.classList.remove("hidden");
-
 }
 // -----------------------------
 //        remove player function
@@ -243,8 +230,7 @@ function deletePlayer(playerId: string) {
     redAlert("Player not found");
   }
 }
-function clearForm(){
-
+function clearForm() {
   playerId.value = "";
   name.value = "";
   position.value = "";
@@ -253,10 +239,4 @@ function clearForm(){
   ratingInput.value = "";
 }
 
-export {
-  displayPlayers,
-  getPlayers,
-  setPlayers,
-  addPlayer,
-  card
-};
+export { displayPlayers, getPlayers, setPlayers, addPlayer, card };

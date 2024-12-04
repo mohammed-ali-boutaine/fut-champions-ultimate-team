@@ -16,7 +16,6 @@ function getEquipePlayers() {
             return equipePlayers;
         }
     }
-    // Return an empty equipe if no data is found in local storage
     return Array(11).fill(null);
 }
 //-----------------------------------
@@ -66,7 +65,6 @@ function showEquipePlayers() {
     const equipe = getEquipePlayers();
     let field = document.querySelectorAll(".field .player");
     field.forEach((playerDiv, index) => {
-        console.log(equipe);
         let player = equipe[index];
         if (player != null) {
             playerDiv.innerHTML = card(player);
@@ -75,7 +73,6 @@ function showEquipePlayers() {
         else {
             playerDiv.innerHTML = `<img class="plus-image" src="./assets/images/plus.svg" alt="plus icon">`;
         }
-        console.log(true);
     });
 }
 export { addEquipePlayer, removeEquipePlayer, showEquipePlayers, getEquipePlayers, setEquipe, };

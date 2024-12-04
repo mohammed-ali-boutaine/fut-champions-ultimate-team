@@ -18,15 +18,18 @@ function getEquipePlayers(): (Player | null)[] {
       return equipePlayers;
     }
   }
-  // Return an empty equipe if no data is found in local storage
   return Array(11).fill(null);
 }
+
+
 //-----------------------------------
 //-----------------------------------
 // Save equipe players to local storage
 function setEquipe(equipe: (Player | null)[]): void {
   localStorage.setItem("equipe", JSON.stringify(equipe));
 }
+
+
 //-----------------------------------
 // Add a player to the equipe
 function addEquipePlayer(index: number, player: Player| undefined) {

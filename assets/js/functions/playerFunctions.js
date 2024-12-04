@@ -14,7 +14,6 @@ function getPlayers() {
     if (storedPlayers) {
         players = JSON.parse(storedPlayers);
     }
-    // console.log(players);
     return players;
 }
 //-----------------------------------
@@ -27,7 +26,6 @@ function setPlayers(players) {
 // Add or update player function
 function addPlayer() {
     try {
-        // Get data from form
         let players = getPlayers();
         // Validate form inputs
         if (!(name === null || name === void 0 ? void 0 : name.value.trim()) ||
@@ -42,17 +40,16 @@ function addPlayer() {
         // Parse rating and player ID
         const rating = parseInt(ratingInput.value, 10) || 0;
         const id = parseInt(playerId.value, 10) || 0;
-        // let players = getPlayers();
         if (playerId.value !== "") {
             // Update existing player
-            let player = players.find(player => player.id == Number(playerId.value));
+            let player = players.find((player) => player.id == Number(playerId.value));
             if (!player) {
                 redAlert("error");
                 return;
             }
             player.name = name.value;
-            player.position = position.value,
-                player.nationality = nationality.value;
+            (player.position = position.value),
+                (player.nationality = nationality.value);
             player.club = club.value;
             player.rating = rating;
             updatePlayer(player);
@@ -70,15 +67,12 @@ function addPlayer() {
         }
     }
     catch (error) {
-        console.error("Error handling player:", error);
         redAlert("An unexpected error occurred. Please try again.");
     }
 }
 //-----------------------------------
 // Update an existing player
 function updatePlayer(updatedPlayer) {
-    console.log(updatedPlayer);
-    // use id
     let players = getPlayers();
     const index = players.findIndex((player) => player.id == updatedPlayer.id);
     if (index !== -1) {
@@ -89,8 +83,6 @@ function updatePlayer(updatedPlayer) {
     else {
         redAlert("Player not found");
     }
-    // Populate form with player's data
-    const playerId = document.getElementById("player-id");
     clearForm();
 }
 //-----------------------------------
@@ -101,7 +93,6 @@ function card(player) {
     const defaultFlag = "./assets/images/unknown-flag.png";
     let playerPhoto = photo ? photo : defaultPhoto;
     let playerFlag = flag ? flag : defaultFlag;
-    // console.log(player.rating);
     if (rating == undefined) {
         rating = player._rating;
     }
@@ -140,8 +131,6 @@ function displayPlayers(players) {
             var _a;
             const target = ev.target;
             const playerId = Number((_a = target.closest(".card")) === null || _a === void 0 ? void 0 : _a.id);
-            // ?.querySelector("#id") as HTMLElement;
-            // console.log(playerId);
             if (playerId) {
                 showEdit(playerId);
                 displayPlayers(getPlayers());
@@ -153,8 +142,6 @@ function displayPlayers(players) {
             var _a;
             const target = ev.target;
             const playerId = (_a = target.closest(".card")) === null || _a === void 0 ? void 0 : _a.id;
-            // ?.querySelector("#id") as HTMLElement;
-            console.log(playerId);
             if (playerId) {
                 deletePlayer(playerId);
                 displayPlayers(getPlayers());
@@ -163,16 +150,13 @@ function displayPlayers(players) {
     });
 }
 function showEdit(id) {
-    // console.log("id ",id);
     const formContainer = document.getElementById("add-player-form");
     const player = getPlayers().find((player) => player.id == id);
-    // Handle case where player is not found
     if (!player) {
         redAlert("Player not found.");
         return;
     }
     const formTitle = document.getElementById("form-title");
-    // Populate form with player's data
     playerId.value = String(player.id);
     name.value = player.name;
     position.value = player.position;
@@ -190,7 +174,6 @@ function showEdit(id) {
 function deletePlayer(playerId) {
     let players = getPlayers();
     const updatedPlayers = players.filter((player) => player.id != Number(playerId));
-    console.log(updatedPlayers);
     if (players.length !== updatedPlayers.length) {
         // save players , show green wlert , dislay palyers
         setPlayers(updatedPlayers);

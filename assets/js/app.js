@@ -40,21 +40,15 @@ const formContainer = document.getElementById("add-player-form");
 });
 // Handle player card interactions
 const playerDivs = document.querySelectorAll(".field .player");
-// console.log(playerDivs);
 playerDivs.forEach((playerDiv, index) => {
     playerDiv.addEventListener("click", function (ev) {
-        // console.log(index);
-        // addEquipePlayer(index,)
         const cardsContainer = document.querySelector(".cards");
         const cards = document.querySelectorAll(".cards .card");
         cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.add("shaking");
-        // console.log("Player clicked:", ev.target);
         const handleCardClick = (cardEvent) => {
             const card = cardEvent.currentTarget;
-            // console.log("Card clicked:", card.id);
             let player = getPlayers().find(player => player.id == Number(card.id));
             addEquipePlayer(index, player);
-            // console.log("Player clicked:", ev);
             cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.remove("shaking");
             cards.forEach(card => card.removeEventListener("click", handleCardClick));
         };
@@ -66,5 +60,4 @@ playerDivs.forEach((playerDiv, index) => {
 // Initialize the application by showing data
 showData();
 showEquipePlayers();
-// showEquipePlayers
 setEquipe(getEquipePlayers());

@@ -21,9 +21,6 @@ async function showData() {
     displayPlayers(players);
 }
 
-
-
-
 // Handle form submission for adding a new player
 const formContainer = document.getElementById("add-player-form") as HTMLDivElement;
 document.querySelector("#add-player-form form")?.addEventListener("submit", function (ev) {
@@ -35,27 +32,20 @@ document.querySelector("#add-player-form form")?.addEventListener("submit", func
 
 // Handle player card interactions
 const playerDivs = document.querySelectorAll(".field .player") as NodeListOf<HTMLDivElement>;
-// console.log(playerDivs);
 
 playerDivs.forEach((playerDiv,index) => {
     playerDiv.addEventListener("click", function (ev: MouseEvent) {
 
-        // console.log(index);
-        // addEquipePlayer(index,)
         const cardsContainer = document.querySelector(".cards") as HTMLDivElement;
         const cards = document.querySelectorAll(".cards .card") as NodeListOf<HTMLDivElement>;
 
         cardsContainer?.classList.add("shaking");
-        // console.log("Player clicked:", ev.target);
 
         const handleCardClick = (cardEvent: MouseEvent) => {
             const card = cardEvent.currentTarget as HTMLDivElement;
 
-            // console.log("Card clicked:", card.id);
             let player:Player | undefined= getPlayers().find(player => player.id == Number(card.id))
             addEquipePlayer(index,player)
-
-            // console.log("Player clicked:", ev);
 
             cardsContainer?.classList.remove("shaking");
             cards.forEach(card => card.removeEventListener("click", handleCardClick));
@@ -70,5 +60,4 @@ playerDivs.forEach((playerDiv,index) => {
 // Initialize the application by showing data
 showData();
 showEquipePlayers()
-// showEquipePlayers
 setEquipe(getEquipePlayers())
