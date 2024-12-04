@@ -1,4 +1,5 @@
 import { redAlert, greenAlert } from "./functions/alert.js";
+import { addEquipePlayer, getEquipePlayers, setEquipe, showEquipePlayers } from "./functions/equipeFunction.js";
 import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
 import Player from "./modules/Player";
 
@@ -20,6 +21,9 @@ async function showData() {
     displayPlayers(players);
 }
 
+
+
+
 // Handle form submission for adding a new player
 const formContainer = document.getElementById("add-player-form") as HTMLDivElement;
 document.querySelector("#add-player-form form")?.addEventListener("submit", function (ev) {
@@ -30,20 +34,28 @@ document.querySelector("#add-player-form form")?.addEventListener("submit", func
 });
 
 // Handle player card interactions
-const playerDivs = document.querySelectorAll(".player") as NodeListOf<HTMLDivElement>;
-playerDivs.forEach(playerDiv => {
+const playerDivs = document.querySelectorAll(".field .player") as NodeListOf<HTMLDivElement>;
+// console.log(playerDivs);
+
+playerDivs.forEach((playerDiv,index) => {
     playerDiv.addEventListener("click", function (ev: MouseEvent) {
+
+        // console.log(index);
+        // addEquipePlayer(index,)
         const cardsContainer = document.querySelector(".cards") as HTMLDivElement;
         const cards = document.querySelectorAll(".cards .card") as NodeListOf<HTMLDivElement>;
 
         cardsContainer?.classList.add("shaking");
-        console.log("Player clicked:", ev);
+        // console.log("Player clicked:", ev.target);
 
         const handleCardClick = (cardEvent: MouseEvent) => {
             const card = cardEvent.currentTarget as HTMLDivElement;
-            // playerDiv.innerHTML = card.innerHTML;
-            // playerDiv.append = card.innerHTML;
-            console.log("Card clicked:", cardEvent);
+
+            // console.log("Card clicked:", card.id);
+            let player:Player | undefined= getPlayers().find(player => player.id == Number(card.id))
+            addEquipePlayer(index,player)
+
+            // console.log("Player clicked:", ev);
 
             cardsContainer?.classList.remove("shaking");
             cards.forEach(card => card.removeEventListener("click", handleCardClick));
@@ -57,3 +69,6 @@ playerDivs.forEach(playerDiv => {
 
 // Initialize the application by showing data
 showData();
+showEquipePlayers()
+// showEquipePlayers
+setEquipe(getEquipePlayers())

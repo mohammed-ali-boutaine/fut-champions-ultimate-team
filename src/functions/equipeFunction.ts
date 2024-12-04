@@ -1,7 +1,6 @@
-import Player from "../modules/Player";
-import { greenAlert, redAlert } from "./alert";
-
-const equipePLayers: (Player | null)[] = Array(11).fill(null);
+import Player from "../modules/Player.js";
+import { greenAlert, redAlert } from "./alert.js";
+import { card } from "./playerFunctions.js";
 
 
 //-----------------------------------
@@ -10,15 +9,19 @@ function getEquipePlayers(): (Player | null)[] {
   let equipeData = localStorage.getItem("equipe");
   if (equipeData) {
     try {
-      const equipePLayers: (Player | null)[] = JSON.parse(equipeData);
-      return equipePLayers;
+      const equipePlayers: (Player | null)[] = JSON.parse(equipeData);
+      return equipePlayers;
     } catch (error) {
-      return [];
+      // If parsing fails, initialize with an empty equipe
+      const equipePlayers: (Player | null)[] = Array(11).fill(null);
+      setEquipe(equipePlayers);
+      return equipePlayers;
     }
   }
-  return [];
+  // Return an empty equipe if no data is found in local storage
+  return Array(11).fill(null);
 }
-//-------------------------------------
+//-----------------------------------
 //-----------------------------------
 // Save equipe players to local storage
 function setEquipe(equipe: (Player | null)[]): void {
@@ -26,18 +29,21 @@ function setEquipe(equipe: (Player | null)[]): void {
 }
 //-----------------------------------
 // Add a player to the equipe
-function addEquipePlayer(index: number, player: Player) {
-  let equipe: (Player | null)[] = getEquipePlayers();
+function addEquipePlayer(index: number, player: Player| undefined) {
 
+  if(player == undefined || !player){
+    redAlert("error player is false")
+    return
+  }
+  let equipe: (Player | null)[] = getEquipePlayers();
 
   if (index < 0 || index >= equipe.length) {
     redAlert("Invalid index. Please choose a valid position.");
     return;
   }
 
-
   // Check if the player already exists in the team
-  const existingPlayer:Player | null | undefined = equipe.find(
+  const existingPlayer: Player | null | undefined = equipe.find(
     (equipePlayer) => equipePlayer?.id === player.id
   );
 
@@ -45,26 +51,24 @@ function addEquipePlayer(index: number, player: Player) {
     redAlert("Player already in the team.");
     return;
   }
-  equipe[index] = player
-  // const equipePlayer: EquipePlayer = { position, player };
-  // equipe.push(equipePlayer);
+  equipe[index] = player;
 
   setEquipe(equipe);
   greenAlert("Player added to equipe successfully");
+  showEquipePlayers()
 }
 
 //-----------------------------------
 // Remove a player from the equipe by name
-function removeEquipePlayer(index:number) {
-  
-  let equipe = getEquipePlayers()
+function removeEquipePlayer(index: number) {
+  let equipe = getEquipePlayers();
 
   if (index < 0 || index >= equipe.length) {
     redAlert("Invalid index. Please choose a valid position.");
     return;
   }
 
-  equipe[index] = null
+  equipe[index] = null;
   setEquipe(equipe);
   greenAlert("Player removed from equipe successfully.");
 }
@@ -72,8 +76,28 @@ function removeEquipePlayer(index:number) {
 //-----------------------------------
 // Display the current team (for debugging)
 function showEquipePlayers(): void {
-  const equipe = getEquipePlayers();
-  console.log(equipe);
+  const equipe: (Player | null)[] = getEquipePlayers();
+
+  let field = document.querySelectorAll(".field .player") as NodeListOf<HTMLDivElement>
+  field.forEach( (playerDiv,index) =>{
+    console.log(equipe);
+
+    let player :Player | null = equipe[index]
+    if(player != null){
+      playerDiv.innerHTML = card(player) 
+      
+      // continue
+    }else{
+      playerDiv.innerHTML = `<img class="plus-image" src="./assets/images/plus.svg" alt="plus icon">`
+    }      console.log(true);
+
+  })
 }
 
-export { addEquipePlayer, removeEquipePlayer, showEquipePlayers, getEquipePlayers, setEquipe };
+export {
+  addEquipePlayer,
+  removeEquipePlayer,
+  showEquipePlayers,
+  getEquipePlayers,
+  setEquipe,
+};

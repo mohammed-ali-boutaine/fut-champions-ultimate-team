@@ -3,9 +3,10 @@
 #players-menu{
      display: none;
      position: absolute;
-     top: 100px;
-     left: 0px;
-     background-color: antiquewhite;
+     top: 80px;
+     left: 10px;
+     cursor: pointer;
+     /* background-color: antiquewhite; */
 }
 
 @media screen and (max-width:800px) {

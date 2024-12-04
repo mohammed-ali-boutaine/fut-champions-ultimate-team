@@ -18,6 +18,7 @@ function getPlayers(): Player[] {
   }
   // console.log(players);
 
+
   return players;
 }
 //-----------------------------------
@@ -269,4 +270,5 @@ export {
   getPlayers,
   setPlayers,
   addPlayer,
+  card
 };
