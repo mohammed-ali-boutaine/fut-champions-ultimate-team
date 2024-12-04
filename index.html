@@ -33,7 +33,41 @@
     <link rel="stylesheet" href="./assets/css/media.css">
   </head>
 
+<style>
+        @keyframes pop-up {
+        0% {
+          transform: scale(0.5);
+          top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+          opacity: 1;
+        }
+      }
 
+      @keyframes fadeInRight-ani {
+   0% {
+      opacity: 0;
+      transform: translateX(80px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateX(0);
+   }
+} 
+
+
+
+      .form-pop-up {
+        animation: pop-up 0.3s ease-out;
+      }
+</style>
   <body>
     <!-- ------------------------------------------------ -->
     <!-- back ground animation  -->
@@ -87,20 +121,20 @@
 <!-- --------------------------------------  -->
 
 
-    <div class="container card-container actzive">
+    <div class="container card-container">
 
-      <div class="players-menu" id="players-menu">
+      <div class="players-menu " id="players-menu">
         <!-- menu -->
         <img src="./assets/images/menu.svg" alt="">
       </div>
-      <div id="cards" class="cards active container-child">
+      <div id="cards" class="cards active container-child ">
         <div id="loader-container">
           <div class="loader"></div>
         </div>
 
       </div>
       <!-- /--------------------------------------------- -->
-      <div class="field container-child">
+      <div class="field container-child fadeInRight">
         <div class="attack">
           <div class="player-square player cf " ><img class="plus-image" src="./assets/images/plus.svg" alt="plus icon"></div>
           <div class="player-square player cf "><img class="plus-image"  src="./assets/images/plus.svg" alt="plus icon"></div>
@@ -141,7 +175,7 @@
 
     
     <!-- add player  -->
-    <div class="form-container hidden" id="add-player-form">
+    <div class="form-container hidden form-pop-up" id="add-player-form">
       <div class="form-holder">
         <div class="close" id="close-btn">
           <svg

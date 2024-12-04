@@ -80,7 +80,6 @@ function showEquipePlayers(): void {
 
   let field = document.querySelectorAll(".field .player") as NodeListOf<HTMLDivElement>
   field.forEach( (playerDiv,index) =>{
-    console.log(equipe);
 
     let player :Player | null = equipe[index]
     if(player != null){
@@ -89,7 +88,7 @@ function showEquipePlayers(): void {
       // continue
     }else{
       playerDiv.innerHTML = `<img class="plus-image" src="./assets/images/plus.svg" alt="plus icon">`
-    }      console.log(true);
+    }      
 
   })
 }

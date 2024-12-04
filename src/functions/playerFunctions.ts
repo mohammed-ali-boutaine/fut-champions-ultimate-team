@@ -16,9 +16,6 @@ function getPlayers(): Player[] {
   if (storedPlayers) {
     players = JSON.parse(storedPlayers);
   }
-  // console.log(players);
-
-
   return players;
 }
 //-----------------------------------
@@ -92,7 +89,6 @@ function addPlayer() {
       greenAlert("Player added successfully");
     }
   } catch (error) {
-    console.error("Error handling player:", error);
     redAlert("An unexpected error occurred. Please try again.");
   }
 }
@@ -102,7 +98,6 @@ function addPlayer() {
 
 function updatePlayer(updatedPlayer: Player) {
   
-console.log(updatedPlayer);
 
 // use id
   let players: Player[] = getPlayers();
@@ -132,7 +127,6 @@ function card(player: Player): string {
   let playerPhoto = photo ? photo : defaultPhoto;
   let playerFlag = flag ? flag : defaultFlag;
 
-  // console.log(player.rating);
 
   if (rating == undefined) {
     rating = player._rating;
@@ -178,8 +172,7 @@ function displayPlayers(players: Player[]) {
     btn.addEventListener("click", function (ev) {
       const target = ev.target as HTMLElement;
       const playerId = Number(target.closest(".card")?.id)
-      // ?.querySelector("#id") as HTMLElement;
-      // console.log(playerId);
+
 
       if (playerId) {
         showEdit(playerId);
@@ -192,8 +185,6 @@ function displayPlayers(players: Player[]) {
     btn.addEventListener("click", function (ev) {
       const target = ev.target as HTMLElement;
       const playerId = target.closest(".card")?.id;
-      // ?.querySelector("#id") as HTMLElement;
-      console.log(playerId);
 
       if (playerId) {
         deletePlayer(playerId);
@@ -205,7 +196,6 @@ function displayPlayers(players: Player[]) {
 
 function showEdit(id:number){
 
-  // console.log("id ",id);
   const formContainer = document.getElementById("add-player-form")as HTMLDivElement
 
   const player: Player | undefined = getPlayers().find((player) => player.id == id);
@@ -244,8 +234,6 @@ function deletePlayer(playerId: string) {
   const updatedPlayers = players.filter(
     (player) => player.id != Number(playerId)
   );
-  console.log(updatedPlayers);
-
   if (players.length !== updatedPlayers.length) {
     // save players , show green wlert , dislay palyers
     setPlayers(updatedPlayers);
