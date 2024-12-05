@@ -4,11 +4,10 @@ interface PlayerInterface {
   position: string;
   nationality: string;
   club: string;
-  rating: number;
 
   // optional properties
   photo?: string;
-  flag?: string; 
+  flag?: string;
   logo?: string;
   pace?: number;
   shooting?: number;
@@ -24,12 +23,11 @@ class Player implements PlayerInterface {
   position: string;
   nationality: string;
   club: string;
-  private _rating: number;
-
+  rating: number;
   // optional properties
   photo?: string;
   logo?: string;
-  flag?: string ;
+  flag?: string;
   pace?: number;
   shooting?: number;
   passing?: number;
@@ -66,22 +64,21 @@ class Player implements PlayerInterface {
     this.dribbling = dribbling;
     this.defending = defending;
     this.physical = physical;
-    this._rating = rating; // Use getter and setter for rating
+    this.rating = rating;
   }
 
-  // Getter for rating
-  get rating(): number {
-    return this._rating;
-  }
+  // // Getter for rating
+  // get getRating(): number {
+  //   return this.rating;
+  // }
 
-  // Setter for rating with validation
-  set rating(value: number) {
-    if (value < 0 || value > 100) {
-      throw new Error("Rating must be between 0 and 100");
-    }
-    this._rating = value;
-  }
-
+  // // Setter for rating with validation
+  // set setRating(value: number) {
+  //   if (value < 0 || value > 100) {
+  //     throw new Error("Rating must be between 0 and 100");
+  //   }
+  //   this.rating = value;
+  // }
 }
 
 export default Player;

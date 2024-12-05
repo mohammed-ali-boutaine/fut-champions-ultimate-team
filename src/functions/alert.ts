@@ -6,7 +6,7 @@ function createAlert(message: string, type: string): void {
 
     document.body.appendChild(div);
 
-    // Remove the alert after 3 seconds
+    // remove the alert after 3 seconds
     setTimeout(() => {
         div.remove();
     }, 3000);

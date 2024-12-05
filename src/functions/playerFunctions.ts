@@ -41,21 +41,24 @@ function addPlayer() {
       !ratingInput?.value.trim()
     ) {
       redAlert("All fields are required.");
-      clearForm();
+      // clearForm();
       return;
     }
 
     // Parse rating and player ID
     const rating: number = parseInt(ratingInput.value, 10) || 0;
-    const id: number = parseInt(playerId.value, 10) || 0;
+    // const id: number = parseInt(playerId.value, 10) || 0;
 
-    if (playerId.value !== "") {
+    if (playerId.value !== "") {      // if id exists -> update
+                                      // else -> ajoute
+
+
       // Update existing player
       let player: Player | undefined = players.find(
         (player) => player.id == Number(playerId.value)
       );
       if (!player) {
-        redAlert("error");
+        redAlert("player not found");
         return;
       }
 
@@ -67,6 +70,8 @@ function addPlayer() {
 
       updatePlayer(player);
     } else {
+      const id =
+      players.length > 0 ? Number(players[players.length - 1].id) + 1 : 1;
       // Create Player instance
       const player = new Player(
         id,
@@ -76,11 +81,6 @@ function addPlayer() {
         club.value,
         rating
       );
-      // Assign new ID for new player
-      const newId =
-        players.length > 0 ? Number(players[players.length - 1].id) + 1 : 1;
-
-      player.id = newId;
 
       // Add player to the list
       players.push(player);
@@ -119,9 +119,10 @@ function card(player: Player): string {
   let playerPhoto = photo ? photo : defaultPhoto;
   let playerFlag = flag ? flag : defaultFlag;
 
-  if (rating == undefined) {
-    rating = player._rating;
-  }
+  // if (rating == undefined) {
+  //   rating = player.rating;
+  // }
+  // console.log(player.rating);
 
   return `
     <div title="${player.name}" class="card" id="${id}">
@@ -185,6 +186,8 @@ function displayPlayers(players: Player[]) {
 }
 
 function showEdit(id: number) {
+  const formTitle = document.getElementById("form-title") as HTMLHeadElement;
+
   const formContainer = document.getElementById(
     "add-player-form"
   ) as HTMLDivElement;
@@ -198,7 +201,6 @@ function showEdit(id: number) {
     return;
   }
 
-  const formTitle = document.getElementById("form-title") as HTMLHeadElement;
 
   playerId.value = String(player.id);
   name.value = player.name;

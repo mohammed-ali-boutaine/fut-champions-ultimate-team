@@ -35,7 +35,7 @@ const formContainer = document.getElementById("add-player-form");
 (_a = document.querySelector("#add-player-form form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", function (ev) {
     ev.preventDefault();
     addPlayer();
-    formContainer.classList.toggle("hidden");
+    // formContainer.classList.toggle("hidden");
     displayPlayers(getPlayers());
 });
 // Handle player card interactions

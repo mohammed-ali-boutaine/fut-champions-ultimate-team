@@ -1,4 +1,4 @@
-import { redAlert, greenAlert } from "./functions/alert.js";
+import { redAlert } from "./functions/alert.js";
 import { addEquipePlayer, getEquipePlayers, setEquipe, showEquipePlayers } from "./functions/equipeFunction.js";
 import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
 import Player from "./modules/Player";
@@ -26,7 +26,7 @@ const formContainer = document.getElementById("add-player-form") as HTMLDivEleme
 document.querySelector("#add-player-form form")?.addEventListener("submit", function (ev) {
     ev.preventDefault();
     addPlayer();
-    formContainer.classList.toggle("hidden");
+    // formContainer.classList.toggle("hidden");
     displayPlayers(getPlayers());
 });
 

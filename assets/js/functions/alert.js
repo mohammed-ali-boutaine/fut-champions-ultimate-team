@@ -4,7 +4,7 @@ function createAlert(message, type) {
     div.innerHTML = message;
     div.classList.add("alert", type);
     document.body.appendChild(div);
-    // Remove the alert after 3 seconds
+    // remove the alert after 3 seconds
     setTimeout(() => {
         div.remove();
     }, 3000);
