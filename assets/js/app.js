@@ -7,57 +7,73 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a;
 import { redAlert } from "./functions/alert.js";
-import { addEquipePlayer, getEquipePlayers, setEquipe, showEquipePlayers } from "./functions/equipeFunction.js";
-import { addPlayer, displayPlayers, getPlayers, setPlayers } from "./functions/playerFunctions.js";
+import { addEquipePlayer, getEquipePlayers, setEquipe, showEquipePlayers, } from "./functions/equipeFunction.js";
+import { addPlayer, displayPlayers, getPlayers, setPlayers, } from "./functions/playerFunctions.js";
 const url = "http://localhost:3000/players";
-// Fetch and display player data
+const palyersDataPath = "/api/data.json";
+// Get palyers data
 function showData() {
     return __awaiter(this, void 0, void 0, function* () {
-        let players = getPlayers();
-        if (players.length === 0) {
-            try {
-                const res = yield fetch(url);
-                players = yield res.json();
-                setPlayers(players);
+        try {
+            let players = getPlayers();
+            if (players.length === 0) {
+                const response = yield fetch(palyersDataPath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = yield response.json();
+                setPlayers(data.players);
+                players = data.players;
             }
-            catch (error) {
-                redAlert("Error fetching players: " + error);
-                return;
-            }
+            displayPlayers(players);
         }
-        displayPlayers(players);
+        catch (error) {
+            console.error("Failed to load players:", error);
+            redAlert(`Failed to load players: ${error instanceof Error ? error.message : "Unknown error"}`);
+        }
     });
 }
-// Handle form submission for adding a new player
+// add player form 
 const formContainer = document.getElementById("add-player-form");
-(_a = document.querySelector("#add-player-form form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", function (ev) {
+if (!formContainer) {
+    throw new Error("Form container not found");
+}
+const form = formContainer.querySelector("form");
+if (!form) {
+    throw new Error("Form element not found");
+}
+form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     addPlayer();
-    // formContainer.classList.toggle("hidden");
     displayPlayers(getPlayers());
 });
-// Handle player card interactions
+// Improve card interaction handling
 const playerDivs = document.querySelectorAll(".field .player");
 playerDivs.forEach((playerDiv, index) => {
-    playerDiv.addEventListener("click", function (ev) {
+    playerDiv.addEventListener("click", function () {
         const cardsContainer = document.querySelector(".cards");
+        if (!cardsContainer)
+            return;
         const cards = document.querySelectorAll(".cards .card");
-        cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.add("shaking");
+        cardsContainer.classList.add("shaking");
+        const cleanup = () => {
+            cardsContainer.classList.remove("shaking");
+            cards.forEach((card) => card.removeEventListener("click", handleCardClick));
+        };
         const handleCardClick = (cardEvent) => {
             const card = cardEvent.currentTarget;
-            let player = getPlayers().find(player => player.id == Number(card.id));
-            addEquipePlayer(index, player);
-            cardsContainer === null || cardsContainer === void 0 ? void 0 : cardsContainer.classList.remove("shaking");
-            cards.forEach(card => card.removeEventListener("click", handleCardClick));
+            const playerId = Number(card.id);
+            const player = getPlayers().find((p) => p.id === playerId);
+            if (player) {
+                addEquipePlayer(index, player);
+            }
+            cleanup();
         };
-        cards.forEach(card => {
-            card.addEventListener("click", handleCardClick);
-        });
+        cards.forEach((card) => card.addEventListener("click", handleCardClick));
     });
 });
-// Initialize the application by showing data
+// init app
 showData();
 showEquipePlayers();
 setEquipe(getEquipePlayers());
