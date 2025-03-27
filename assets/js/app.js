@@ -11,7 +11,7 @@ import { redAlert } from "./functions/alert.js";
 import { addEquipePlayer, getEquipePlayers, setEquipe, showEquipePlayers, } from "./functions/equipeFunction.js";
 import { addPlayer, displayPlayers, getPlayers, setPlayers, } from "./functions/playerFunctions.js";
 const url = "http://localhost:3000/players";
-const palyersDataPath = "/api/data.json";
+const palyersDataPath = "./api/data.json";
 // Get palyers data
 function showData() {
     return __awaiter(this, void 0, void 0, function* () {

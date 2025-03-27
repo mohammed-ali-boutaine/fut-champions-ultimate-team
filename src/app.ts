@@ -14,7 +14,7 @@ import {
 import Player from "./modules/Player";
 
 const url = "http://localhost:3000/players";
-const palyersDataPath = "/api/data.json";
+const palyersDataPath = "./api/data.json";
 
 // Get palyers data
 async function showData() {
